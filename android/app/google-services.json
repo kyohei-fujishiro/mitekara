@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "389847026471",
+    "project_id": "manabiplus-4ba63",
+    "storage_bucket": "manabiplus-4ba63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389847026471:android:1a31e5f9565f2a57a77702",
+        "android_client_info": {
+          "package_name": "com.mitekara.manabiplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeVwkp_b2loZNkhcUcwvTjir8csMBjgI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
