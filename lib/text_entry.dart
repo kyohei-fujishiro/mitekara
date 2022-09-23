@@ -143,7 +143,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
               ),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'ページ数を数字で入力　例：315',
+                  hintText: ' 教材の最終ページ数を数字で入力　例：315',
                 ),
                 onChanged: (text) {
                   // TODO:引数がわからない。 parseの使い方を調べる。
