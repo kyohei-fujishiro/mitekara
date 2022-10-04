@@ -10,6 +10,7 @@ import 'package:manabiplus/sinup/user_info_page.dart';
 import 'package:manabiplus/text_entry_moel..dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import 'dart:async';
 
 /* --- 省略 --- */
 
@@ -286,6 +287,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
                       'isStudyTimes': studyTimes,
                     });
                   }
+
                   Navigator.of(context).pop(true);
                   // MaterialPageRoute(
                   //   builder: (context) => text_entry_model(), /

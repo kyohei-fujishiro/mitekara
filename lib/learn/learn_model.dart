@@ -67,7 +67,6 @@ class LearnModel extends ChangeNotifier {
     await JagdeCourse(course);
     await getRateFields(textid);
     await IfNextday(textid);
-
   }
 
   Future GetTextId(textid) {
@@ -122,10 +121,10 @@ class LearnModel extends ChangeNotifier {
         .orderBy('isPage')
         .get();
     pagesDocumentList = getpagefield.docs;
-    if(pagesDocumentList.length == 0){
+    if (pagesDocumentList.length == 0) {
       tasks = false;
       print(tasks);
-    }else{
+    } else {
       for (var document in pagesDocumentList) {
         var map = new Map<String, dynamic>.from(document.data());
         print(map['isPage'].toString());
@@ -137,12 +136,7 @@ class LearnModel extends ChangeNotifier {
         print('$maxPage');
         i = maxPage;
       }
-
     }
-
-
-
-
 
     notifyListeners();
   } // course = 1
@@ -164,10 +158,10 @@ class LearnModel extends ChangeNotifier {
         .get();
 
     pagesDocumentList = getpagefield.docs;
-    if(pagesDocumentList.length == 0){
+    if (pagesDocumentList.length == 0) {
       tasks = false;
       print(tasks);
-    }else{
+    } else {
       for (var document in pagesDocumentList) {
         var map = new Map<String, dynamic>.from(document.data());
         print(map['isPage'].toString());
@@ -178,10 +172,7 @@ class LearnModel extends ChangeNotifier {
         print('$maxPage');
         i = maxPage;
       }
-
     }
-
-
 
     notifyListeners();
   } // course = 2
@@ -202,10 +193,10 @@ class LearnModel extends ChangeNotifier {
         .get();
 
     pagesDocumentList = getpagefield.docs;
-    if(pagesDocumentList.length == 0){
+    if (pagesDocumentList.length == 0) {
       tasks = false;
       print(tasks);
-    }else{
+    } else {
       for (var document in pagesDocumentList) {
         var map = new Map<String, dynamic>.from(document.data());
         print(map['isPage'].toString());
@@ -217,10 +208,6 @@ class LearnModel extends ChangeNotifier {
         i = maxPage;
       }
     }
-
-
-
-
 
     notifyListeners();
   } //course = 3
@@ -281,7 +268,6 @@ class LearnModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
   Future Days(double rankNumber, int RetakeNumber) async {
     final getdayfield = await FirebaseFirestore.instance
         .collection('users')
@@ -320,7 +306,8 @@ class LearnModel extends ChangeNotifier {
     nextday = now.add(Duration(days: addday));
 
     //todo retake>0のときnextdayを直接代入　2021/11/26
-    if (retake != 0) {// todo
+    if (retake != 0) {
+      // todo
       if (rankNumber == 2.5) {
         nextday = now.add(Duration(days: 1));
       } else if (rankNumber == 3.0) {
@@ -384,8 +371,7 @@ class LearnModel extends ChangeNotifier {
   }
 
   Future IfNextday(textid) async {
-
-    nextdayList = [];
+    final newNextdayList = <String>[];
     List<double> rankNumberList = [0.65, 0.9, 2.5, 3.0];
     //todo retake>0でnextdayListに直接代入　2021/11/26
 
@@ -397,7 +383,7 @@ class LearnModel extends ChangeNotifier {
         nextday = now.add(Duration(days: addday));
         DateFormat NextdayFormat = DateFormat('MM月dd日');
         String NextDayString = NextdayFormat.format(nextday);
-        nextdayList.add(NextDayString);
+        newNextdayList.add(NextDayString);
       }
     } else if (retake == 0) {
       for (var rankNumber in rankNumberList) {
@@ -426,15 +412,10 @@ class LearnModel extends ChangeNotifier {
         nextday = now.add(Duration(days: addday));
         DateFormat NextdayFormat = DateFormat('MM月dd日');
         String NextDayString = NextdayFormat.format(nextday);
-        nextdayList.add(NextDayString);
+        newNextdayList.add(NextDayString);
       }
     }
-
+    nextdayList = newNextdayList;
     notifyListeners();
   }
-
-
-
-
 }
-

@@ -20,12 +20,6 @@ class LearnPage extends StatelessWidget {
             verticalDirection: VerticalDirection.up, // childrenの先頭を下に配置
             mainAxisSize: MainAxisSize.min,
             children: [
-              // FloatingActionButton(
-              //   heroTag: "hero1",
-              //   child: Icon(Icons.add),
-              //   backgroundColor: Color(0xff00FFD4),
-              // ),
-
               Container(
                 // 余白のためContainerでラップ
                 margin: EdgeInsets.only(bottom: 16.0),
@@ -61,7 +55,18 @@ class LearnPage extends StatelessWidget {
             future: Provider.of<LearnModel>(context, listen: false)
                 .initialize(textid, course),
             builder: (context, dataSnapshot) {
+              if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
               return Consumer<LearnModel>(builder: (context, model, child) {
+                if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
                 if (model.tasks == true) {
                   return Container(
                     child: Column(
@@ -71,7 +76,7 @@ class LearnPage extends StatelessWidget {
                           child: Text(
                             model.title,
                             style: TextStyle(
-                                fontSize: deviceHeight * deviceHeight * 0.035,
+                                fontSize: deviceHeight * 0.035,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                           ),
