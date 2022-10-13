@@ -37,7 +37,7 @@ class TextSelectPage extends StatelessWidget {
                 child: GridView.count(
                   crossAxisCount: 2,
                   children: List.generate(
-                    model.textIdList.length,
+                    model.titleList.length,
                     (index) {
                       return Center(
                           child: FlatButton(
@@ -47,7 +47,9 @@ class TextSelectPage extends StatelessWidget {
                               width: devicewidth * 0.4,
                               height: deviceHeight * 0.045,
                               child: FittedBox(
+                                fit: BoxFit.contain,
                                 child: Text(
+                                  // '適当',
                                   model.titleList[index],
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -57,21 +59,33 @@ class TextSelectPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-
-                            //画像処理
-                            Container(
-                              width: devicewidth * 0.32,
-                              height: deviceHeight * 0.15,
-                              color: Colors.white,
-                              child: Center(
-                                child: Text("No Image",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25,
-                                    )),
-                              ),
-                            ),
+                            () {
+                              if (model.imageList[index] == null) {
+                                //画像処理
+                                return Container(
+                                  width: devicewidth * 0.32,
+                                  height: deviceHeight * 0.15,
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Text("No Image",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                        )),
+                                  ),
+                                );
+                              } else {
+                                return Container(
+                                  width: devicewidth * 0.32,
+                                  height: deviceHeight * 0.15,
+                                  child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Image.network(
+                                          model.imageList[index])),
+                                );
+                              }
+                            }(),
                           ],
                         ),
                         onPressed: () async {

@@ -26,6 +26,7 @@ class CourseSelectModel extends ChangeNotifier {
   Future initialize(String textid) async {
     await getTextFields(textid);
     await GetPageNumber(textid);
+    notifyListeners();
   }
 
   Future getTextFields(textid) async {

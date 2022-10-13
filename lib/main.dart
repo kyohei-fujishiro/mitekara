@@ -8,6 +8,7 @@ import 'package:manabiplus/result/result_list_page_model.dart';
 import 'package:manabiplus/result/result_to_learn_page_model.dart';
 import 'package:manabiplus/result/text_result_list_model.dart';
 import 'package:manabiplus/sinup/sinup_page.dart';
+import 'package:manabiplus/text_entry_moel..dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => textResultListPageModel()),
         ChangeNotifierProvider(create: (context) => resultToLearnPageModel()),
         ChangeNotifierProvider(create: (context) => OptionModel()),
+        ChangeNotifierProvider(create: (context) => TextEntryModel()),
       ],
       child: MaterialApp(
         title: 'ミテカラ',

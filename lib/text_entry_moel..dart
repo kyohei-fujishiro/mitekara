@@ -16,113 +16,90 @@ import '../main.dart';
 /* --- 省略 --- */
 
 // ログイン画面用Widget
-class text_entry_model extends StatefulWidget {
-  @override
-  _text_entry_modelState createState() => _text_entry_modelState();
-}
+String uid = FirebaseAuth.instance.currentUser.uid;
 
-class _text_entry_modelState extends State<text_entry_model> {
-  String orderDocumentInfo = '';
-  String rate = '';
+class TextEntryModel extends ChangeNotifier {
+  String textname = '間違えた数';
+  int pages = 0;
+  String uselection = '間違えた数';
   String again = '';
   String normal = '';
   String good = '';
   String great = '';
 
+  String orderDocumentInfo = '';
+  String rate = '';
   String maxpage = '';
   String item1 = '';
   String item2 = '';
   String item3 = '';
   String item4 = '';
   String rank = '';
-  int days = 1;
-  int nextday = 1;
-  int tag = 0;
+  double days = 1.0;
+  DateTime nextday;
+  String state = '';
   int page = 1;
-  bool retake = false;
+  int retake = 0;
   DateTime laststudy;
   DateTime NextstudySchedule;
   String uid = FirebaseAuth.instance.currentUser.uid;
+  List<DocumentSnapshot> textsDocumentList = [];
+  List<dynamic> textIdList = [];
+  String textid = '';
 
-  @override
-  void initState() {
-    super.initState();
-    makeMaxpage();
-    print('終わったよ');
-  }
+  int studyTimes;
+  var _image;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff00FFD4).withOpacity(0.8),
-        title: Center(
-          child: const Text(
-            "ミテカラ",
-            style: TextStyle(
-                fontSize: 35,
-                color: Color(0xff707070),
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Text(rate,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: Color(0xff707070))),
-              Text(again,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: Color(0xff707070))),
-              Text(normal,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: Color(0xff707070))),
-              Text(good,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: Color(0xff707070))),
-              Text(great,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: Color(0xff707070))),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  Future makeNewText() async {
+    final textEntry = await FirebaseFirestore.instance
+        // ドキュメント作成
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc()
+        .set({
+      'name': '$textname',
+      'ページ数': pages,
+      '評価基準': '$uselection',
+      'again': '$again',
+      'normal': '$normal',
+      'good': '$good',
+      'great': '$great',
+      '作成日': Timestamp.now()
+    });
 
-  Future makeMaxpage() async {
+    textIdList = [];
+    final gettext = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .orderBy('作成日', descending: false)
+        .get();
+
+    gettext.docs.forEach((doc) async {
+      textid = doc.id;
+      textIdList.add(doc.id);
+    });
+    textid = textIdList.last;
+    print(textid);
+
     final getmaxpage = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
-        .doc('3333')
+        .doc(textid)
         .get();
+    maxpage = '${getmaxpage['ページ数']}';
 
-    setState(() {
-      maxpage = '${getmaxpage['ページ数']}';
-    });
     var maxPageInt = int.parse(maxpage);
 
     for (int i = 1; i <= maxPageInt; i++) {
       page = i;
-
-      final makepagefiled = FirebaseFirestore.instance
+      final makepagefiled = await FirebaseFirestore.instance
           .collection('users')
           .doc('$uid')
           .collection('text')
-          .doc('3333')
+          .doc(textid)
           .collection('pages')
           .doc('$page')
           .set({
@@ -131,16 +108,16 @@ class _text_entry_modelState extends State<text_entry_model> {
         'item2': '$item2',
         'item3': '$item3',
         'item4': '$item4',
-        'rank': rank,
+        'rank': 'Level1',
         'days': days,
         'nextDay': nextday,
         'nextStudySchedule': NextstudySchedule,
         'lastStudy': laststudy,
         'isFirstTime': true,
-        'tag': tag,
-        'isRetake': false,
+        'state': state,
+        'isRetake': retake,
+        'isStudyTimes': studyTimes,
       });
     }
-    return makeMaxpage;
   }
 }

@@ -63,17 +63,14 @@ class _TextEntryPageState extends State<TextEntryPage> {
     });
   }
 
-  Future<void> uploadFile() async {
+  Future<String> uploadFile() async {
     final FirebaseStorage storage = FirebaseStorage.instance;
-    Reference ref = storage.ref().child('UL'); //保存するフォルダ
-    UploadTask task =
-        ref.child(DateTime.now().toString()).putFile(_image); //画像の名前
+    Reference ref =
+        storage.ref().child('UL').child(DateTime.now().toString()); //保存するフォルダ
+    UploadTask task = ref.putFile(_image); //画像の名前
 
-    try {
-      var snapshot = await task;
-    } catch (FirebaseException) {
-      //エラー処理
-    }
+    var snapshot = await task;
+    return ref.getDownloadURL();
   }
 
   Future<void> addFilePath(
@@ -215,7 +212,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
                 child: Text('新規教材を登録する'),
                 onPressed: () async {
                   String uid = FirebaseAuth.instance.currentUser.uid;
-                  uploadFile();
+                  final downloadurl = await uploadFile();
 
                   final textEntry = await FirebaseFirestore.instance
                       // ドキュメント作成
@@ -231,7 +228,8 @@ class _TextEntryPageState extends State<TextEntryPage> {
                     'normal': '$normal',
                     'good': '$good',
                     'great': '$great',
-                    '作成日': Timestamp.now()
+                    '作成日': Timestamp.now(),
+                    'imageurl': downloadurl,
                   });
 
                   textIdList = [];
@@ -263,7 +261,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
 
                   for (int i = 1; i <= maxPageInt; i++) {
                     page = i;
-                    final makepagefiled = await FirebaseFirestore.instance
+                    FirebaseFirestore.instance
                         .collection('users')
                         .doc('$uid')
                         .collection('text')
@@ -305,11 +303,11 @@ class _TextEntryPageState extends State<TextEntryPage> {
     );
   }
 
-  Future<int> GetText() async {
-    return GetText();
-  }
-
-  Future makeMaxpage() async {
-    return makeMaxpage;
-  }
+  // Future<int> GetText() async {
+  //   return GetText();
+  // }
+  //
+  // Future makeMaxpage() async {
+  //   return makeMaxpage;
+  // }
 }

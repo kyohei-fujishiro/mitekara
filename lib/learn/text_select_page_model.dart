@@ -33,6 +33,7 @@ class TextSelectPageModel extends ChangeNotifier {
   String great = '';
   String title = '';
   List<dynamic> titleList = [];
+  List<dynamic> imageList = [];
   List<String> nextdayList = ['', '', '', ''];
   List<DocumentSnapshot> pagesDocumentList = [];
   List<DocumentSnapshot> textsDocumentList = [];
@@ -41,10 +42,10 @@ class TextSelectPageModel extends ChangeNotifier {
   List<int> reviewPageList = [];
   List<int> retakePageList = [];
 
-
   Future<int> GetText() async {
     textIdList = [];
     titleList = [];
+    imageList = [];
     final gettext = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -63,8 +64,10 @@ class TextSelectPageModel extends ChangeNotifier {
           .doc('$textId')
           .get();
       // 取得したドキュメント一覧をUIに反映
-      title = '${gettextfield['name']}';
+      title = '${gettextfield.data()['name']}';
+      final image = gettextfield.data()['imageurl'];
       titleList.add(title);
+      imageList.add(image);
     }
     notifyListeners();
   }
@@ -79,7 +82,4 @@ class TextSelectPageModel extends ChangeNotifier {
         .delete();
     notifyListeners();
   }
-
-
-
 }

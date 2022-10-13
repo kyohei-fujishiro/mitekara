@@ -22,6 +22,7 @@ dependencies:
   firebase_storage: ^10.2.6
   flutter_launcher_icons: ^0.9.3
   url_launcher: ^6.1.5
+  progress_state_button: ^1.0.4
 
 
 
