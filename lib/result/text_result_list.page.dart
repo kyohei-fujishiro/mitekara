@@ -55,9 +55,9 @@ class _TextResultListPageState extends State<TextResultListPage> {
                           width: devicewidth * 0.075,
                           child: GestureDetector(
                             child: Text(model.pages[index].isPage.toString()),
-                            onTap: () {
+                            onTap: () async {
                               page = model.pages[index].isPage;
-                              Navigator.push(
+                              await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
@@ -66,6 +66,9 @@ class _TextResultListPageState extends State<TextResultListPage> {
                                   fullscreenDialog: true,
                                 ),
                               );
+                              Provider.of<textResultListPageModel>(context,
+                                      listen: false)
+                                  .getPages(widget.textid);
                             },
                           ),
                         ),

@@ -57,25 +57,31 @@ class resultToLearnPage extends StatelessWidget {
             ),
           ),
         ),
-        body: FutureBuilder(
-            future: Provider.of<resultToLearnPageModel>(context, listen: false)
-                .initialize(textid, page),
-            builder: (context, dataSnapshot) {
-              return Consumer<resultToLearnPageModel>(
-                  builder: (context, model, child) {
-                print('$model.title' + '表示画面');
-                return SingleChildScrollView(
-                  child: Container(
+        body: SingleChildScrollView(
+          child: FutureBuilder(
+              future:
+                  Provider.of<resultToLearnPageModel>(context, listen: false)
+                      .initialize(textid, page),
+              builder: (context, dataSnapshot) {
+                return Consumer<resultToLearnPageModel>(
+                    builder: (context, model, child) {
+                  print('$model.title' + '表示画面');
+                  return Container(
                     child: Column(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 6),
-                          child: Text(
-                            model.title,
-                            style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                          padding: const EdgeInsets.only(top: 1, bottom: 1),
+                          child: Container(
+                            width: devicewidth * 0.9,
+                            height: deviceHeight * 0.05,
+                            child: FittedBox(
+                              child: Text(
+                                model.title,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                         ), //教材名
 
@@ -83,7 +89,7 @@ class resultToLearnPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: EdgeInsets.all(1),
                               child: Row(
                                 children: [
                                   Text(
@@ -103,14 +109,6 @@ class resultToLearnPage extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              ),
-                            ),
-                            Text(
-                              model.item1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: deviceHeight * 0.035,
-                                color: Color(0xff707070),
                               ),
                             ),
                           ],
@@ -575,10 +573,10 @@ class resultToLearnPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                );
-              });
-            }));
+                  );
+                });
+              }),
+        ));
   }
 }
 

@@ -48,7 +48,6 @@ class PagesModel {
   // dynamic pages;
   int studyTimes;
 
-
   PagesModel(
     this.isPage,
     this.isRetake,
@@ -67,6 +66,11 @@ class PagesModel {
 class textResultListPageModel extends ChangeNotifier {
   List<PagesModel> pages = [];
 
+  Future initialize(String textid) async {
+    await getPages(textid);
+    notifyListeners();
+  }
+
   Future getPages(textid) async {
     final getpagefield = await FirebaseFirestore.instance
         .collection('users')
@@ -74,25 +78,25 @@ class textResultListPageModel extends ChangeNotifier {
         .collection('text')
         .doc('$textid')
         .collection('pages')
-        .orderBy('isPage',descending: false)
+        .orderBy('isPage', descending: false)
         .get();
     pages = getpagefield.docs
-    .map((doc) => PagesModel(
-      doc['isPage'],
-      doc['isRetake'],
-      doc['item1'],
-      doc['item2'],
-      doc['item3'],
-      doc['item4'],
-      doc['lastStudy'],//todo
-      doc['nextDay'],
-      doc['rank'],
-      doc['state'],
-      doc['isStudyTimes'],
-    )).toList();
+        .map((doc) => PagesModel(
+              doc['isPage'],
+              doc['isRetake'],
+              doc['item1'],
+              doc['item2'],
+              doc['item3'],
+              doc['item4'],
+              doc['lastStudy'], //todo
+              doc['nextDay'],
+              doc['rank'],
+              doc['state'],
+              doc['isStudyTimes'],
+            ))
+        .toList();
 
     this.pages = pages;
     notifyListeners();
-
   }
 }

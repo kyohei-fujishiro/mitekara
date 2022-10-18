@@ -64,6 +64,9 @@ class _TextEntryPageState extends State<TextEntryPage> {
   }
 
   Future<String> uploadFile() async {
+    if (_image == null) {
+      return null;
+    }
     final FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref =
         storage.ref().child('UL').child(DateTime.now().toString()); //保存するフォルダ

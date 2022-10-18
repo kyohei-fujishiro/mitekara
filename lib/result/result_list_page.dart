@@ -14,7 +14,6 @@ class ResultListPage extends StatefulWidget {
   ResultListPage() : super();
   final String title = 'Charts Demo';
 
-
   @override
   _ResultListPageState createState() => _ResultListPageState();
 }
@@ -30,7 +29,8 @@ class _ResultListPageState extends State<ResultListPage> {
 
     return Scaffold(
       body: FutureBuilder(
-        future: Provider.of<resultListPageModel>(context, listen: false).getGraphData(),
+        future: Provider.of<resultListPageModel>(context, listen: false)
+            .getGraphData(),
         builder: (context, dataSnapshot) {
           // 非同期処理未完了 = 通信中
           if (dataSnapshot.connectionState == ConnectionState.waiting) {
@@ -39,7 +39,8 @@ class _ResultListPageState extends State<ResultListPage> {
             );
           }
 
-          return Consumer<resultListPageModel>(builder: (context, model, child) {
+          return Consumer<resultListPageModel>(
+              builder: (context, model, child) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -61,8 +62,8 @@ class _ResultListPageState extends State<ResultListPage> {
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount:model.resultTextIdList.length,
-                      itemBuilder:(context,index){
+                      itemCount: model.seriesList.length,
+                      itemBuilder: (context, index) {
                         return Column(
                           children: <Widget>[
                             Container(
@@ -99,33 +100,33 @@ class _ResultListPageState extends State<ResultListPage> {
                                         vertical: false,
                                       ),
                                     ),
-
                                     Container(
                                       color: Colors.transparent,
                                     ),
                                   ],
                                 ),
-                                onTap: () {
+                                onTap: () async {
                                   textindex = index;
                                   textid = model.resultTextIdList[index];
-                                  Navigator.push(
+                                  await Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => TextResultListPage(textid),
+                                      builder: (context) =>
+                                          TextResultListPage(textid),
                                       //todo 繊維方法
                                       fullscreenDialog: true,
                                     ),
                                   );
+                                  Provider.of<resultListPageModel>(context,
+                                          listen: false)
+                                      .getGraphData();
                                 },
                               ),
                             ),
                           ],
                         );
-
-                      }
-                  ),
+                      }),
                 )
-
               ],
             );
           });

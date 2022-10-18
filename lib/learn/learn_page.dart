@@ -51,35 +51,40 @@ class LearnPage extends StatelessWidget {
             ),
           ),
         ),
-        body: FutureBuilder(
-            future: Provider.of<LearnModel>(context, listen: false)
-                .initialize(textid, course),
-            builder: (context, dataSnapshot) {
-              if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Consumer<LearnModel>(builder: (context, model, child) {
+        body: SingleChildScrollView(
+          child: FutureBuilder(
+              future: Provider.of<LearnModel>(context, listen: false)
+                  .initialize(textid, course),
+              builder: (context, dataSnapshot) {
                 if (dataSnapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 }
+                return Consumer<LearnModel>(builder: (context, model, child) {
+                  if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
 
-                if (model.tasks == true) {
-                  return SingleChildScrollView(
-                    child: Container(
+                  if (model.tasks == true) {
+                    return Container(
                       child: Column(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 6),
-                            child: Text(
-                              model.title,
-                              style: TextStyle(
-                                  fontSize: deviceHeight * 0.035,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                            padding: const EdgeInsets.only(top: 1, bottom: 1),
+                            child: Container(
+                              width: devicewidth * 0.9,
+                              height: deviceHeight * 0.05,
+                              child: FittedBox(
+                                child: Text(
+                                  model.title,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ), //教材名
 
@@ -87,29 +92,42 @@ class LearnPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'ページ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: deviceHeight * 0.035,
-                                        color: Color(0xff707070),
-                                      ),
+                                padding: const EdgeInsets.all(1),
+                                child: Container(
+                                  width: devicewidth * 0.4,
+                                  height: deviceHeight * 0.05,
+                                  child: FittedBox(
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'ページ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: deviceHeight * 0.035,
+                                            color: Color(0xff707070),
+                                          ),
+                                        ),
+                                        Text(
+                                          model.page.toString(),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: deviceHeight * 0.035,
+                                            color: Color(0xff707070),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      model.page.toString(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: deviceHeight * 0.035,
-                                        color: Color(0xff707070),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                              Text(
+                            ],
+                          ),
+                          //単元名
+                          Container(
+                            width: devicewidth * 0.8,
+                            height: deviceHeight * 0.05,
+                            child: FittedBox(
+                              child: Text(
                                 model.item1,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -117,48 +135,71 @@ class LearnPage extends StatelessWidget {
                                   color: Color(0xff707070),
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                          //単元名
-                          Text(
-                            model.item2,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: deviceHeight * 0.035,
-                              color: Color(0xff707070),
+                          Container(
+                            width: devicewidth * 0.8,
+                            height: deviceHeight * 0.05,
+                            child: FittedBox(
+                              child: Text(
+                                model.item2,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: deviceHeight * 0.035,
+                                  color: Color(0xff707070),
+                                ),
+                              ),
                             ),
                           ),
 
-                          Text(
-                            model.item3,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: deviceHeight * 0.035,
-                              color: Color(0xff707070),
+                          Container(
+                            width: devicewidth * 0.8,
+                            height: deviceHeight * 0.05,
+                            child: FittedBox(
+                              child: Text(
+                                model.item3,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: deviceHeight * 0.035,
+                                  color: Color(0xff707070),
+                                ),
+                              ),
                             ),
                           ),
-                          Text(
-                            model.item4,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: deviceHeight * 0.035,
-                              color: Color(0xff707070),
+                          Container(
+                            width: devicewidth * 0.8,
+                            height: deviceHeight * 0.05,
+                            child: FittedBox(
+                              child: Text(
+                                model.item4,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: deviceHeight * 0.035,
+                                  color: Color(0xff707070),
+                                ),
+                              ),
                             ),
                           ),
 
-                          Text(
-                            model.rank,
-                            style: TextStyle(
-                                fontSize: deviceHeight * 0.035,
-                                color: Color(0xff707070),
-                                fontWeight: FontWeight.bold),
+                          Container(
+                            width: devicewidth * 0.8,
+                            height: deviceHeight * 0.05,
+                            child: FittedBox(
+                              child: Text(
+                                model.rank,
+                                style: TextStyle(
+                                    fontSize: deviceHeight * 0.035,
+                                    color: Color(0xff707070),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ), //ランク
 
                           Divider(
                             color: Colors.grey,
-                            indent: 30,
-                            endIndent: 30,
-                            thickness: 3.0,
+                            indent: devicewidth * 0.01,
+                            endIndent: devicewidth * 0.01,
+                            thickness: deviceHeight * 0.005,
                           ),
 
                           Column(
@@ -217,8 +258,9 @@ class LearnPage extends StatelessWidget {
                               )), //表題
 
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 30.0, bottom: 20),
+                                padding: EdgeInsets.only(
+                                    top: deviceHeight * 0.0225,
+                                    bottom: deviceHeight * 0.0225),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -289,7 +331,8 @@ class LearnPage extends StatelessWidget {
                               ), //againライン
 
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 20.0),
+                                padding: EdgeInsets.only(
+                                    bottom: deviceHeight * 0.0225),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -360,7 +403,8 @@ class LearnPage extends StatelessWidget {
                               ), //normalライン
 
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 20),
+                                padding: EdgeInsets.only(
+                                    bottom: deviceHeight * 0.0225),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -427,34 +471,66 @@ class LearnPage extends StatelessWidget {
                                 ),
                               ), //85-95
 
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Container(
-                                    width: devicewidth * 0.275,
-                                    height: deviceHeight * 0.0425,
-                                    child: FittedBox(
-                                      // fit: BoxFit.scaleDown,
-                                      //todo 文字の大きさある程度以下！
-                                      child: Text(
-                                        model.great,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: deviceHeight * 0.035,
-                                          color: Color(0xff707070),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: deviceHeight * 0.0225),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                      width: devicewidth * 0.275,
+                                      height: deviceHeight * 0.0425,
+                                      child: FittedBox(
+                                        // fit: BoxFit.scaleDown,
+                                        //todo 文字の大きさある程度以下！
+                                        child: Text(
+                                          model.great,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: deviceHeight * 0.035,
+                                            color: Color(0xff707070),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    width: devicewidth * 0.275,
-                                    height: deviceHeight * 0.0425,
-                                    child: FlatButton(
+                                    Container(
+                                      width: devicewidth * 0.275,
+                                      height: deviceHeight * 0.0425,
+                                      child: FlatButton(
+                                        child: FittedBox(
+                                          // fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            'great',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                              color: Color(0xff707070),
+                                            ),
+                                          ),
+                                        ),
+                                        color:
+                                            Color(0xff5FABF6).withOpacity(0.57),
+                                        shape: StadiumBorder(
+                                          side: BorderSide(
+                                              color: Color(0xff707070),
+                                              width: 1.5),
+                                        ),
+                                        onPressed: () async {
+                                          await model.Days(3.0, 0);
+                                          await model.GetPage();
+                                        },
+                                      ),
+                                    ),
+                                    /*great*/
+
+                                    Container(
+                                      width: devicewidth * 0.275,
+                                      height: deviceHeight * 0.0425,
                                       child: FittedBox(
                                         // fit: BoxFit.scaleDown,
                                         child: Text(
-                                          'great',
+                                          model.nextdayList[3],
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 25,
@@ -462,43 +538,15 @@ class LearnPage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      color:
-                                          Color(0xff5FABF6).withOpacity(0.57),
-                                      shape: StadiumBorder(
-                                        side: BorderSide(
-                                            color: Color(0xff707070),
-                                            width: 1.5),
-                                      ),
-                                      onPressed: () async {
-                                        await model.Days(3.0, 0);
-                                        await model.GetPage();
-                                      },
-                                    ),
-                                  ),
-                                  /*great*/
-
-                                  Container(
-                                    width: devicewidth * 0.275,
-                                    height: deviceHeight * 0.0425,
-                                    child: FittedBox(
-                                      // fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        model.nextdayList[3],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25,
-                                          color: Color(0xff707070),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ), //95-100
                             ],
                           ), //選択画面
                           SizedBox(
-                            width: devicewidth * 0.275,
-                            height: deviceHeight * 0.05,
+                            width: devicewidth * 0.175,
+                            height: deviceHeight * 0.001,
                           ),
                           Row(
                             children: [
@@ -584,23 +632,23 @@ class LearnPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                  );
-                } else {
-                  return Text(
-                    'おめでとうございます！'
-                    '\n本日の学習すべきページはありません。'
-                    '\n本当によく頑張りました。'
-                    '\n'
-                    '\n先に進めるページがない場合は保留を解除して学習を続けましょう。',
-                    style: TextStyle(
-                        fontSize: deviceHeight * 0.03,
-                        color: Color(0xff707070),
-                        fontWeight: FontWeight.bold),
-                  );
-                }
-              });
-            }));
+                    );
+                  } else {
+                    return Text(
+                      'おめでとうございます！'
+                      '\n本日の学習すべきページはありません。'
+                      '\n本当によく頑張りました。'
+                      '\n'
+                      '\n先に進めるページがない場合は保留を解除して学習を続けましょう。',
+                      style: TextStyle(
+                          fontSize: deviceHeight * 0.03,
+                          color: Color(0xff707070),
+                          fontWeight: FontWeight.bold),
+                    );
+                  }
+                });
+              }),
+        ));
   }
 }
 

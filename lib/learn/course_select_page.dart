@@ -125,13 +125,16 @@ class CourseSelectPage extends StatelessWidget {
                                 ),
                                 onPressed: () async {
                                   course = 2;
-                                  Navigator.push(
+                                  await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             LearnPage(textid, course),
                                         fullscreenDialog: true,
                                       ));
+                                  Provider.of<CourseSelectModel>(context,
+                                          listen: false)
+                                      .initialize(textid);
                                 },
                               ),
                               Text(
@@ -164,13 +167,16 @@ class CourseSelectPage extends StatelessWidget {
                                 ),
                                 onPressed: () async {
                                   course = 3;
-                                  Navigator.push(
+                                  await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             LearnPage(textid, course),
                                         fullscreenDialog: true,
                                       ));
+                                  Provider.of<CourseSelectModel>(context,
+                                          listen: false)
+                                      .initialize(textid);
                                 },
                               ),
                               Text(

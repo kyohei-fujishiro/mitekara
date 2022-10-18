@@ -121,6 +121,28 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
               ),
+              InkWell(
+                  child: const Text(
+                    'パスワードのリセットはこちら',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: () async {
+                    try {
+                      await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: email);
+                      setState(() {
+                        infoText = "パスワードリセット用のメールを送信しました";
+                      });
+                    } catch (e) {
+                      setState(() {
+                        infoText = "正しいアドレスを入力してください";
+                      });
+                    }
+                  }),
             ],
           ), //signup機能
         ),

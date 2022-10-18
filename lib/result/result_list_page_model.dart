@@ -52,9 +52,9 @@ class resultListPageModel extends ChangeNotifier {
   List<int> reviewPageList = [];
   List<int> retakePageList = [];
 
-  List resultTextIdList;
-  List resultTitleList;
-  List resultRankList;
+  List resultTextIdList = [];
+  List resultTitleList = [];
+  List resultRankList = [];
   int resultMaxpages;
   List AllLevelPagesDocumentList;
   double LearnedPagesRate;
@@ -65,14 +65,16 @@ class resultListPageModel extends ChangeNotifier {
 
   Future getGraphData() async {
     // firebaseからresultDateを取得
+    resultTextIdList.clear();
+    // notifyListeners();
+    textNameList.clear();
+    seriesList.clear();
 
-    resultTextIdList = [];
     AllLevelPagesDocumentList = [];
     List LearnedPagesDocumentList = [];
     List LearnedPagesList = [];
     List ReservedPagesDocumentList = [];
     List ResevedPagesList = [];
-
 
     double Level1Rate = 0;
     double Level2Rate = 0;
@@ -111,10 +113,12 @@ class resultListPageModel extends ChangeNotifier {
           .collection('pages')
           .get();
       AllLevelPagesDocumentList = AllLevelPage.docs;
+
       for (var document in AllLevelPagesDocumentList) {
         var map = new Map<String, dynamic>.from(document.data());
         AllLevelPagesList.add(map['isPage']);
       }
+      // AllLevelPageListLength = AllLevelPagesDocumentList.length;
 
       final LearnedPages = await FirebaseFirestore.instance
           .collection('users')
@@ -132,9 +136,9 @@ class resultListPageModel extends ChangeNotifier {
           var map = new Map<String, dynamic>.from(document.data());
           LearnedPagesList.add(map['isPage']);
         }
-        LearnedPagesListLength = LearnedPagesList.length;
+        LearnedPagesListLength = LearnedPagesDocumentList.length;
       }
-      print('$LearnedPagesListLength'+'LearnedPagesListLength');
+      print('$LearnedPagesListLength' + 'LearnedPagesListLength');
 
       final ResevedPages = await FirebaseFirestore.instance
           .collection('users')
@@ -145,17 +149,17 @@ class resultListPageModel extends ChangeNotifier {
           .where('state', isEqualTo: 'Reseve')
           .get();
       ReservedPagesDocumentList = ResevedPages.docs;
-      if(ReservedPagesDocumentList.length == 0 ){
+      if (ReservedPagesDocumentList.length == 0) {
         ReservedPagesDocumentListLength = 0;
-      }else{
+      } else {
         for (var document in ReservedPagesDocumentList) {
           var map = new Map<String, dynamic>.from(document.data());
           ResevedPagesList.add(map['isPage']);
         }
         ReservedPagesDocumentListLength = ReservedPagesDocumentList.length;
       }
-      print('$ReservedPagesDocumentListLength'+'ReservedPagesDocumentListLength');
-
+      print('$ReservedPagesDocumentListLength' +
+          'ReservedPagesDocumentListLength');
 
       LearnedPagesRate =
           (LearnedPagesListLength / (AllLevelPagesList.length)) * 100;
