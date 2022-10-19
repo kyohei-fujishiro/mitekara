@@ -153,7 +153,7 @@ class CourseSelectPage extends StatelessWidget {
                             children: [
                               FlatButton(
                                 child: Text(
-                                  '課題を行う',
+                                  '課題を行うよ',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
