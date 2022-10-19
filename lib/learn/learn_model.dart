@@ -17,6 +17,7 @@ String uid = FirebaseAuth.instance.currentUser.uid;
 
 class LearnModel extends ChangeNotifier {
   int currentCourse = 0;
+  int isStudyTimes = 0;
   String item1 = '';
   String item2 = '';
   String item3 = '';
@@ -33,7 +34,6 @@ class LearnModel extends ChangeNotifier {
   String textid = '';
   String resultTextid = '';
   bool tasks = true;
-
   double rankNumber = 0;
   int page = 1;
   String rate = '';
@@ -278,6 +278,8 @@ class LearnModel extends ChangeNotifier {
         .doc('$i')
         .get();
     days = getdayfield['days'];
+    isStudyTimes = getdayfield['isStudyTimes'];
+
     days = days *
         (rankNumber +
             ((0.1) - (5 - rankNumber) * (0.08 + (5 - rankNumber) * 0.02)));
@@ -321,6 +323,13 @@ class LearnModel extends ChangeNotifier {
       retake = retake + RetakeNumber;
     }
 
+    if (currentCourse <= 2) {
+      if (isStudyTimes == null) {
+        isStudyTimes = 0;
+      }
+      isStudyTimes = isStudyTimes + 1;
+    }
+
     final updatedaysfiled = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -333,6 +342,7 @@ class LearnModel extends ChangeNotifier {
       'nextDay': Timestamp.fromDate(nextday),
       'lastStudy': laststudy,
       'isFirstTime': false,
+      'isStudyTimes': isStudyTimes,
       'item1': item1,
       'item2': item2,
       'item3': item3,

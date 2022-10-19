@@ -17,6 +17,7 @@ String uid = FirebaseAuth.instance.currentUser.uid;
 
 class resultToLearnPageModel extends ChangeNotifier {
   int currentCourse = 0;
+  int isStudyTimes = 0;
   String item1 = '';
   String item2 = '';
   String item3 = '';
@@ -63,26 +64,22 @@ class resultToLearnPageModel extends ChangeNotifier {
   int x = 0;
 
   Future initialize(String textid, int page) async {
-    await GetTextPage(textid,page);
-    await getRateFields(textid,page);
-    await IfNextday(textid,page);
-
+    await GetTextPage(textid, page);
+    await getRateFields(textid, page);
+    await IfNextday(textid, page);
   }
 
-  Future GetTextPage(textid,page) {
+  Future GetTextPage(textid, page) {
     this.textid = textid;
     this.page = page;
     print(textid + 'textid');
     print('$page' + 'page');
   }
 
-
-
   Future GetPage() async {
-    await getRateFields(textid,page);
-    await IfNextday(textid,page);
+    await getRateFields(textid, page);
+    await IfNextday(textid, page);
   }
-
 
   Future InputPageField(
       String item1, String item2, String item3, String item4) async {
@@ -104,7 +101,7 @@ class resultToLearnPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getRateFields(textid,page) async {
+  Future getRateFields(textid, page) async {
     final getpageitem = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -140,7 +137,6 @@ class resultToLearnPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
   Future Days(double rankNumber, int RetakeNumber) async {
     final getdayfield = await FirebaseFirestore.instance
         .collection('users')
@@ -151,6 +147,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         .doc('$page')
         .get();
     days = getdayfield['days'];
+    isStudyTimes = getdayfield['isStudyTimes'];
     days = days *
         (rankNumber +
             ((0.1) - (5 - rankNumber) * (0.08 + (5 - rankNumber) * 0.02)));
@@ -179,7 +176,8 @@ class resultToLearnPageModel extends ChangeNotifier {
     nextday = now.add(Duration(days: addday));
 
     //todo retake>0のときnextdayを直接代入　2021/11/26
-    if (retake != 0) {// todo
+    if (retake != 0) {
+      // todo
       if (rankNumber == 2.5) {
         nextday = now.add(Duration(days: 1));
       } else if (rankNumber == 3.0) {
@@ -193,6 +191,11 @@ class resultToLearnPageModel extends ChangeNotifier {
       retake = retake + RetakeNumber;
     }
 
+    if (isStudyTimes == null) {
+      isStudyTimes = 0;
+    }
+    isStudyTimes = isStudyTimes + 1;
+
     final updatedaysfiled = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -205,6 +208,7 @@ class resultToLearnPageModel extends ChangeNotifier {
       'nextDay': Timestamp.fromDate(nextday),
       'lastStudy': laststudy,
       'isFirstTime': false,
+      'isStudyTimes': isStudyTimes,
       'item1': item1,
       'item2': item2,
       'item3': item3,
@@ -243,8 +247,7 @@ class resultToLearnPageModel extends ChangeNotifier {
   }
 
   // ignore: non_constant_identifier_names
-  Future IfNextday(textid,page) async {
-
+  Future IfNextday(textid, page) async {
     nextdayList = [];
     List<double> rankNumberList = [0.65, 0.9, 2.5, 3.0];
     //todo retake>0でnextdayListに直接代入　2021/11/26
@@ -292,9 +295,4 @@ class resultToLearnPageModel extends ChangeNotifier {
 
     notifyListeners();
   }
-
-
-
-
 }
-

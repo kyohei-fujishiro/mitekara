@@ -39,6 +39,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
         ),
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: ChangeNotifierProvider(
           create: (_) => textResultListPageModel()..getPages(widget.textid),
           child: Consumer<textResultListPageModel>(
@@ -87,7 +88,12 @@ class _TextResultListPageState extends State<TextResultListPage> {
                                 .format(model.pages[index].nextDay.toDate())),
                       ),
                       DataCell(Text(model.pages[index].state.toString())),
-                      DataCell(Text(model.pages[index].studyTimes.toString())),
+                      DataCell(
+                        // Text(model.pages[index].studyTimes.toString())
+                        Text(model.pages[index].studyTimes == null
+                            ? '0'
+                            : (model.pages[index].studyTimes.toString())),
+                      ),
                       DataCell(
                         Text(model.pages[index].isRetake.toString()),
                       ),
