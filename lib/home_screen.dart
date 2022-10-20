@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/learn/course_select_page.dart';
 import 'package:manabiplus/result/result_list_page.dart';
 import 'package:manabiplus/result/result_list_page_model.dart';
 import 'package:manabiplus/option/option_page.dart';
 
+import 'AdBanner.dart';
 import 'learn/text_select_page.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
@@ -45,7 +47,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: _pageList[_selectedIndex],
+      body: Column(
+        children: [
+          AdBanner(size: AdSize.banner),
+          Expanded(child: _pageList[_selectedIndex]),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

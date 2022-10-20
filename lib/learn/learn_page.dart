@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/learn/learn_model.dart';
 import 'package:provider/provider.dart';
 
+import '../AdBanner.dart';
 import 'lean_page_item.dart';
 
 // ignore: must_be_immutable
@@ -10,11 +12,14 @@ class LearnPage extends StatelessWidget {
 
   String textid;
   int course;
-
+  bool greatButton = false;
   @override
   Widget build(BuildContext context) {
     final double devicewidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
+    if (course <= 2) {
+      greatButton = false;
+    }
     return Scaffold(
         floatingActionButton: Column(
             verticalDirection: VerticalDirection.up, // childrenの先頭を下に配置
@@ -72,6 +77,7 @@ class LearnPage extends StatelessWidget {
                     return Container(
                       child: Column(
                         children: <Widget>[
+                          AdBanner(size: AdSize.banner),
                           Padding(
                             padding: const EdgeInsets.only(top: 1, bottom: 1),
                             child: Container(
@@ -305,7 +311,7 @@ class LearnPage extends StatelessWidget {
                                               width: 1.5),
                                         ),
                                         onPressed: () async {
-                                          await model.Days(0.65, 1);
+                                          await model.Days(0.8, 1);
                                           await model.GetPage();
                                         },
                                       ),
@@ -376,7 +382,7 @@ class LearnPage extends StatelessWidget {
                                               width: 1.5),
                                         ),
                                         onPressed: () async {
-                                          await model.Days(0.9, 2);
+                                          await model.Days(1.2, 2);
                                           await model.GetPage();
                                         },
                                       ),
@@ -447,7 +453,7 @@ class LearnPage extends StatelessWidget {
                                               width: 1.5),
                                         ),
                                         onPressed: () async {
-                                          await model.Days(2.5, 0);
+                                          await model.Days(2.7, 0);
                                           await model.GetPage();
                                         },
                                       ),
@@ -470,78 +476,76 @@ class LearnPage extends StatelessWidget {
                                   ],
                                 ),
                               ), //85-95
-
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: deviceHeight * 0.0225),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Container(
-                                      width: devicewidth * 0.275,
-                                      height: deviceHeight * 0.0425,
-                                      child: FittedBox(
-                                        // fit: BoxFit.scaleDown,
-                                        //todo 文字の大きさある程度以下！
-                                        child: Text(
-                                          model.great,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: deviceHeight * 0.035,
-                                            color: Color(0xff707070),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: devicewidth * 0.275,
-                                      height: deviceHeight * 0.0425,
-                                      child: FlatButton(
-                                        child: FittedBox(
-                                          // fit: BoxFit.scaleDown,
-                                          child: Text(
-                                            'great',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25,
-                                              color: Color(0xff707070),
+                              if (course != 3)
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: deviceHeight * 0.0225),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: devicewidth * 0.275,
+                                          height: deviceHeight * 0.0425,
+                                          child: FittedBox(
+                                            // fit: BoxFit.scaleDown,
+                                            //todo 文字の大きさある程度以下！
+                                            child: Text(
+                                              model.great,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: deviceHeight * 0.035,
+                                                color: Color(0xff707070),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        color:
-                                            Color(0xff5FABF6).withOpacity(0.57),
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                              color: Color(0xff707070),
-                                              width: 1.5),
-                                        ),
-                                        onPressed: () async {
-                                          await model.Days(3.0, 0);
-                                          await model.GetPage();
-                                        },
-                                      ),
-                                    ),
-                                    /*great*/
-
-                                    Container(
-                                      width: devicewidth * 0.275,
-                                      height: deviceHeight * 0.0425,
-                                      child: FittedBox(
-                                        // fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          model.nextdayList[3],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                            color: Color(0xff707070),
+                                        Container(
+                                          width: devicewidth * 0.275,
+                                          height: deviceHeight * 0.0425,
+                                          child: FlatButton(
+                                            child: FittedBox(
+                                              // fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                'great',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25,
+                                                  color: Color(0xff707070),
+                                                ),
+                                              ),
+                                            ),
+                                            color: Color(0xff5FABF6)
+                                                .withOpacity(0.57),
+                                            shape: StadiumBorder(
+                                              side: BorderSide(
+                                                  color: Color(0xff707070),
+                                                  width: 1.5),
+                                            ),
+                                            onPressed: () async {
+                                              await model.Days(3.7, 0);
+                                              await model.GetPage();
+                                            },
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ), //95-100
+                                        /*great*/
+                                        Container(
+                                          width: devicewidth * 0.275,
+                                          height: deviceHeight * 0.0425,
+                                          child: FittedBox(
+                                            // fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              model.nextdayList[3],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25,
+                                                color: Color(0xff707070),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )), //95-100
                             ],
                           ), //選択画面
                           SizedBox(
@@ -651,5 +655,3 @@ class LearnPage extends StatelessWidget {
         ));
   }
 }
-
-class Learn {}

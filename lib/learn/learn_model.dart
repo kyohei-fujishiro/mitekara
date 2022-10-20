@@ -382,7 +382,7 @@ class LearnModel extends ChangeNotifier {
 
   Future IfNextday(textid) async {
     final newNextdayList = <String>[];
-    List<double> rankNumberList = [0.65, 0.9, 2.5, 3.0];
+    List<double> rankNumberList = [0.8, 1.2, 2.7, 3.7];
     //todo retake>0でnextdayListに直接代入　2021/11/26
 
     if (retake != 0) {

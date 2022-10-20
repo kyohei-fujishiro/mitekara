@@ -249,7 +249,7 @@ class resultToLearnPageModel extends ChangeNotifier {
   // ignore: non_constant_identifier_names
   Future IfNextday(textid, page) async {
     nextdayList = [];
-    List<double> rankNumberList = [0.65, 0.9, 2.5, 3.0];
+    List<double> rankNumberList = [0.8, 1.2, 2.7, 3.7];
     //todo retake>0でnextdayListに直接代入　2021/11/26
 
     if (retake != 0) {

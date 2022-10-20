@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/learn/lean_page_item.dart';
 import 'package:manabiplus/learn/learn_model.dart';
 import 'package:manabiplus/result/result_to_learn_page_model.dart';
 import 'package:provider/provider.dart';
+
+import '../AdBanner.dart';
 
 // ignore: must_be_immutable
 class resultToLearnPage extends StatelessWidget {
@@ -69,6 +72,7 @@ class resultToLearnPage extends StatelessWidget {
                   return Container(
                     child: Column(
                       children: <Widget>[
+                        AdBanner(size: AdSize.banner),
                         Padding(
                           padding: const EdgeInsets.only(top: 1, bottom: 1),
                           child: Container(
@@ -256,7 +260,7 @@ class resultToLearnPage extends StatelessWidget {
                                             width: 1.5),
                                       ),
                                       onPressed: () async {
-                                        await model.Days(0.65, 1);
+                                        await model.Days(0.8, 1);
                                         Navigator.of(context).pop(true);
                                       },
                                     ),
@@ -326,7 +330,7 @@ class resultToLearnPage extends StatelessWidget {
                                             width: 1.5),
                                       ),
                                       onPressed: () async {
-                                        await model.Days(0.9, 2);
+                                        await model.Days(1.2, 2);
                                         Navigator.of(context).pop(true);
                                       },
                                     ),
@@ -396,7 +400,7 @@ class resultToLearnPage extends StatelessWidget {
                                             width: 1.5),
                                       ),
                                       onPressed: () async {
-                                        await model.Days(2.5, 0);
+                                        await model.Days(2.7, 0);
                                         Navigator.of(context).pop(true);
                                       },
                                     ),
@@ -460,7 +464,7 @@ class resultToLearnPage extends StatelessWidget {
                                           color: Color(0xff707070), width: 1.5),
                                     ),
                                     onPressed: () async {
-                                      await model.Days(3.0, 0);
+                                      await model.Days(3.7, 0);
                                       Navigator.of(context).pop(true);
                                     },
                                   ),

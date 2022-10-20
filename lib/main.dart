@@ -10,11 +10,14 @@ import 'package:manabiplus/result/text_result_list_model.dart';
 import 'package:manabiplus/sinup/sinup_page.dart';
 import 'package:manabiplus/text_entry_moel..dart';
 import 'package:provider/provider.dart';
+import 'AdBanner.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Firebase
   await Firebase.initializeApp();
+  MobileAds.instance.initialize();
   runApp(MyApp());
 }
 

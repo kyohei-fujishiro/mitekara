@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/result/result_to_learn_page.dart';
 import 'package:manabiplus/result/text_result_list_model.dart';
 import 'package:manabiplus/result/unit_result_page.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/src/material/data_table.dart';
+
+import '../AdBanner.dart';
 
 class TextResultListPage extends StatefulWidget {
   TextResultListPage(this.textid);
@@ -110,63 +113,67 @@ class _TextResultListPageState extends State<TextResultListPage> {
               final pages = model.pages;
 
               return SingleChildScrollView(
-                child: DataTable(
-                  sortColumnIndex: _currentSortColumn,
-                  sortAscending: _isAscending,
-                  columns: [
-                    DataColumn(
-                        label: Text('ページ数'),
-                        onSort: (columnIndex, isAscendin) {
-                          setState(() {
-                            sortTable(columnIndex, pages, 'isPage');
-                          });
-                        }),
-                    DataColumn(
-                        label: Text('理解レベル'),
-                        onSort: (columnIndex, isAscendin) {
-                          setState(() {
-                            sortTable(columnIndex, pages, 'rank');
-                          });
-                        }),
-                    DataColumn(
-                        label: Text('最終学習日'),
-                        onSort: (columnIndex, isAscendin) {
-                          setState(() {
-                            sortTable(columnIndex, pages, 'lastStudy');
-                          });
-                        }),
-                    DataColumn(
-                        label: Text('次回学習日'),
-                        onSort: (columnIndex, isAscendin) {
-                          setState(() {
-                            sortTable(columnIndex, pages, 'nextDay');
-                          });
-                        }),
-                    DataColumn(
-                        label: Text('状態'),
-                        onSort: (columnIndex, isAscendin) {
-                          setState(() {
-                            sortTable(columnIndex, pages, 'state');
-                          });
-                        }),
-                    DataColumn(
-                        label: Text('学習回数'),
-                        onSort: (columnIndex, isAscendin) {
-                          setState(() {
-                            sortTable(columnIndex, pages, 'isStudyTimes');
-                          });
-                        }),
-                    DataColumn(
-                      label: Text('課題'),
-                    ),
-                    DataColumn(
-                      label: Text('項目１'),
-                    ),
-                    DataColumn(
-                      label: Text('項目２'),
+                child: Column(
+                  children: [
+                    DataTable(
+                      sortColumnIndex: _currentSortColumn,
+                      sortAscending: _isAscending,
+                      columns: [
+                        DataColumn(
+                            label: Text('ページ数'),
+                            onSort: (columnIndex, isAscendin) {
+                              setState(() {
+                                sortTable(columnIndex, pages, 'isPage');
+                              });
+                            }),
+                        DataColumn(
+                            label: Text('理解レベル'),
+                            onSort: (columnIndex, isAscendin) {
+                              setState(() {
+                                sortTable(columnIndex, pages, 'rank');
+                              });
+                            }),
+                        DataColumn(
+                            label: Text('最終学習日'),
+                            onSort: (columnIndex, isAscendin) {
+                              setState(() {
+                                sortTable(columnIndex, pages, 'lastStudy');
+                              });
+                            }),
+                        DataColumn(
+                            label: Text('次回学習日'),
+                            onSort: (columnIndex, isAscendin) {
+                              setState(() {
+                                sortTable(columnIndex, pages, 'nextDay');
+                              });
+                            }),
+                        DataColumn(
+                            label: Text('状態'),
+                            onSort: (columnIndex, isAscendin) {
+                              setState(() {
+                                sortTable(columnIndex, pages, 'state');
+                              });
+                            }),
+                        DataColumn(
+                            label: Text('学習回数'),
+                            onSort: (columnIndex, isAscendin) {
+                              setState(() {
+                                sortTable(columnIndex, pages, 'isStudyTimes');
+                              });
+                            }),
+                        DataColumn(
+                          label: Text('課題'),
+                        ),
+                        DataColumn(
+                          label: Text('項目１'),
+                        ),
+                        DataColumn(
+                          label: Text('項目２'),
+                        ),
+                      ],
+                      rows: _list,
                     ),
                   ],
-                  rows: _list,
                 ),
               );
             },

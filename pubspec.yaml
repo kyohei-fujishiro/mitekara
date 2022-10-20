@@ -24,6 +24,7 @@ dependencies:
   url_launcher: ^6.1.5
   progress_state_button: ^1.0.4
   flushbar:
+  google_mobile_ads: ^1.3.0
 
 
 
