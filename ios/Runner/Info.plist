@@ -2,9 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>GADApplicationIdentifier</key>
-    <string>ca-app-pub-3940256099942544~1458002511</string>
-
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.mitekra.app</string>
@@ -55,6 +52,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CFPlugInDynamicRegisterFunction</key>
 	<string></string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-4725563974509084~7656346436</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
