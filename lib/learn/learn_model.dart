@@ -43,7 +43,7 @@ class LearnModel extends ChangeNotifier {
   String great = '';
   String title = '';
   List<String> nextdayList = ['', '', '', ''];
-  List<DocumentSnapshot> pagesDocumentList = [];
+  List<Map<String, dynamic>> pagesDocumentList = [];
   List<DocumentSnapshot> textsDocumentList = [];
   List<List<charts.Series<dynamic, String>>> seriesList = [];
   List<String> textNameList = [];
@@ -110,23 +110,30 @@ class LearnModel extends ChangeNotifier {
   Future NewGetPageField() async {
     print(textid + 'NewGetPageFieldのtextid');
     List<int> pageList = [];
-    final getpagefield = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .where('isFirstTime', isEqualTo: true)
-        .where('state', isEqualTo: '')
-        .orderBy('isPage')
         .get();
-    pagesDocumentList = getpagefield.docs;
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    final getPageField = pages
+        .where((element) => element['isFirstTime'])
+        .where((element) => element['state'] == '')
+        .toList();
+
+    getPageField.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
+
+    pagesDocumentList = getPageField;
     if (pagesDocumentList.length == 0) {
       tasks = false;
       print(tasks);
     } else {
-      for (var document in pagesDocumentList) {
-        var map = new Map<String, dynamic>.from(document.data());
+      for (var map in pagesDocumentList) {
         print(map['isPage'].toString());
         pageList.add(map['isPage']);
         tasks = true;
@@ -144,26 +151,34 @@ class LearnModel extends ChangeNotifier {
   Future ReviewGetPageField() async {
     var today = Timestamp.fromDate(DateTime.now());
     List<int> pageList = [];
-    final getpagefield = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .where('isFirstTime', isEqualTo: false)
-        .where('state', isEqualTo: "")
-        .where('isRetake', isEqualTo: 0)
-        .where('nextDay', isLessThanOrEqualTo: today)
-        .orderBy('nextDay') //todo
         .get();
 
-    pagesDocumentList = getpagefield.docs;
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    final getPageField = pages
+        .where((element) => element['isFirstTime'] == false)
+        .where((element) => element['state'] == '')
+        .where((element) => element['isRetake'] == 0)
+        .where((element) =>
+            (element['nextDay'] as Timestamp).compareTo(today) <= 0)
+        .toList();
+
+    getPageField
+        .sort((a, b) => (a['nextDay'] as Timestamp).compareTo(b['nextDay']));
+
+    pagesDocumentList = getPageField;
     if (pagesDocumentList.length == 0) {
       tasks = false;
       print(tasks);
     } else {
-      for (var document in pagesDocumentList) {
-        var map = new Map<String, dynamic>.from(document.data());
+      for (var map in pagesDocumentList) {
         print(map['isPage'].toString());
         pageList.add(map['isPage']);
         tasks = true;
@@ -179,26 +194,32 @@ class LearnModel extends ChangeNotifier {
 
   Future RetakeGetPageField() async {
     List<int> pageList = [];
-    final getpagefield = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .where('isFirstTime', isEqualTo: false)
-        .where('state', isEqualTo: "")
-        .where('isRetake', isNotEqualTo: 0)
-        .orderBy('isRetake')
-        .orderBy('days')
         .get();
 
-    pagesDocumentList = getpagefield.docs;
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    final getPageField = pages
+        .where((element) => element['isFirstTime'] == false)
+        .where((element) => element['state'] == '')
+        .where((element) => element['isRetake'] != 0)
+        .toList();
+    getPageField
+        .sort((a, b) => (a['isRetake'] as int).compareTo(b['isRetake']));
+    getPageField.sort((a, b) => (a['days'] as double).compareTo(b['days']));
+
+    pagesDocumentList = getPageField;
     if (pagesDocumentList.length == 0) {
       tasks = false;
       print(tasks);
     } else {
-      for (var document in pagesDocumentList) {
-        var map = new Map<String, dynamic>.from(document.data());
+      for (var map in pagesDocumentList) {
         print(map['isPage'].toString());
         pageList.add(map['isPage']);
         tasks = true;
@@ -214,33 +235,45 @@ class LearnModel extends ChangeNotifier {
 
   Future InputPageField(
       String item1, String item2, String item3, String item4) async {
-    final inputpagefiled = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$i')
-        .update({
-      'item1': item1,
-      'item2': item2,
-      'item3': item3,
-      'item4': item4,
-      'state': state,
-    });
+        .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+    pages[i - 1]['item1'] = item1;
+    pages[i - 1]['item2'] = item2;
+    pages[i - 1]['item3'] = item3;
+    pages[i - 1]['item4'] = item4;
+    pages[i - 1]['state'] = state;
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc(textid)
+        .update({'pages': pages});
 
     notifyListeners();
   }
 
   Future getRateFields(textid) async {
-    final getpageitem = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$i')
         .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    final getpageitem = pages[i - 1];
     item1 = getpageitem['item1'];
     item2 = getpageitem['item2'];
     item3 = getpageitem['item3'];
@@ -250,33 +283,32 @@ class LearnModel extends ChangeNotifier {
     page = i;
     print('$rank');
 
-    final getratefield = await FirebaseFirestore.instance
-        .collection('users')
-        .doc('$uid')
-        .collection('text')
-        .doc(textid)
-        .get();
     // 取得したドキュメント一覧をUIに反映
-    title = '${getratefield['name']}';
-    rate = '${getratefield['評価基準']}';
-    again = '${getratefield['again']}';
-    normal = '${getratefield['normal']}';
-    good = '${getratefield['good']}';
-    great = '${getratefield['great']}';
+    title = '${snapshot['name']}';
+    rate = '${snapshot['評価基準']}';
+    again = '${snapshot['again']}';
+    normal = '${snapshot['normal']}';
+    good = '${snapshot['good']}';
+    great = '${snapshot['great']}';
     print('$title');
 
     notifyListeners();
   }
 
   Future Days(double rankNumber, int RetakeNumber) async {
-    final getdayfield = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
-        .doc(textid)
-        .collection('pages')
-        .doc('$i')
+        .doc('$textid')
         .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    final getdayfield = pages[i - 1];
+
     days = getdayfield['days'];
     isStudyTimes = getdayfield['isStudyTimes'];
 
@@ -330,53 +362,73 @@ class LearnModel extends ChangeNotifier {
       isStudyTimes = isStudyTimes + 1;
     }
 
-    final updatedaysfiled = await FirebaseFirestore.instance
+    pages[i - 1]['days'] = days;
+    pages[i - 1]['nextDay'] = Timestamp.fromDate(nextday);
+    pages[i - 1]['lastStudy'] = laststudy;
+    pages[i - 1]['isFirstTime'] = false;
+    pages[i - 1]['isStudyTimes'] = isStudyTimes;
+
+    pages[i - 1]['item1'] = item1;
+    pages[i - 1]['item2'] = item2;
+    pages[i - 1]['item3'] = item3;
+    pages[i - 1]['item4'] = item4;
+    pages[i - 1]['state'] = state;
+    pages[i - 1]['isRetake'] = retake;
+    pages[i - 1]['rank'] = rank;
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$i')
-        .update({
-      'days': days,
-      'nextDay': Timestamp.fromDate(nextday),
-      'lastStudy': laststudy,
-      'isFirstTime': false,
-      'isStudyTimes': isStudyTimes,
-      'item1': item1,
-      'item2': item2,
-      'item3': item3,
-      'item4': item4,
-      'state': state,
-      'isRetake': retake,
-      'rank': rank,
-    });
+        .update({'pages': pages});
+
     notifyListeners();
   }
 
   Future StateUpdate() async {
-    final StateUpDate = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc('$textid')
+        .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    pages[i - 1]['state'] = 'Reseve';
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$i')
-        .update({
-      'state': 'Reseve',
-    });
+        .update({'pages': pages});
     notifyListeners();
   }
 
   Future DeleteData() async {
-    final DeleteData = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc('$textid')
+        .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    pages.removeAt(i - 1);
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$i')
-        .delete();
+        .update({'pages': pages});
     notifyListeners();
   }
 
@@ -397,14 +449,18 @@ class LearnModel extends ChangeNotifier {
       }
     } else if (retake == 0) {
       for (var rankNumber in rankNumberList) {
-        final getIfNextDayField = await FirebaseFirestore.instance
+        final snapshot = await FirebaseFirestore.instance
             .collection('users')
             .doc('$uid')
             .collection('text')
-            .doc(textid)
-            .collection('pages')
-            .doc('$i')
+            .doc('$textid')
             .get();
+
+        final pages = (snapshot.data()['pages'] as List)
+            .map((e) => e as Map<String, dynamic>)
+            .toList();
+
+        final getIfNextDayField = pages[i - 1];
         days = getIfNextDayField['days'];
         days = days *
             (rankNumber +

@@ -56,7 +56,7 @@ class resultListPageModel extends ChangeNotifier {
   List resultTitleList = [];
   List resultRankList = [];
   int resultMaxpages;
-  List AllLevelPagesDocumentList;
+  List<Map<String, dynamic>> AllLevelPagesDocumentList;
   double LearnedPagesRate;
   double ResevedPagesRate;
   int x = 0;
@@ -105,55 +105,45 @@ class resultListPageModel extends ChangeNotifier {
       textNameList.add(textName);
 
       //全ページ数を取得
-      final AllLevelPage = await FirebaseFirestore.instance
+      final snapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc('$uid')
           .collection('text')
           .doc('$textId')
-          .collection('pages')
           .get();
-      AllLevelPagesDocumentList = AllLevelPage.docs;
 
-      for (var document in AllLevelPagesDocumentList) {
-        var map = new Map<String, dynamic>.from(document.data());
+      final pages = (snapshot.data()['pages'] as List)
+          .map((e) => e as Map<String, dynamic>)
+          .toList();
+
+      AllLevelPagesDocumentList = pages;
+
+      for (var map in AllLevelPagesDocumentList) {
         AllLevelPagesList.add(map['isPage']);
       }
       // AllLevelPageListLength = AllLevelPagesDocumentList.length;
+      final LearnedPages =
+          pages.where((element) => element['isFirstTime'] == false).toList();
 
-      final LearnedPages = await FirebaseFirestore.instance
-          .collection('users')
-          .doc('$uid')
-          .collection('text')
-          .doc('$textId')
-          .collection('pages')
-          .where('isFirstTime', isEqualTo: false)
-          .get();
-      LearnedPagesDocumentList = LearnedPages.docs;
+      LearnedPagesDocumentList = LearnedPages;
       if (LearnedPagesDocumentList.length == 0) {
         LearnedPagesListLength = 0;
       } else {
-        for (var document in LearnedPagesDocumentList) {
-          var map = new Map<String, dynamic>.from(document.data());
+        for (var map in LearnedPagesDocumentList) {
           LearnedPagesList.add(map['isPage']);
         }
         LearnedPagesListLength = LearnedPagesDocumentList.length;
       }
       print('$LearnedPagesListLength' + 'LearnedPagesListLength');
 
-      final ResevedPages = await FirebaseFirestore.instance
-          .collection('users')
-          .doc('$uid')
-          .collection('text')
-          .doc('$textId')
-          .collection('pages')
-          .where('state', isEqualTo: 'Reseve')
-          .get();
-      ReservedPagesDocumentList = ResevedPages.docs;
+      final ResevedPages =
+          pages.where((element) => element['state'] == 'Reseve').toList();
+
+      ReservedPagesDocumentList = ResevedPages;
       if (ReservedPagesDocumentList.length == 0) {
         ReservedPagesDocumentListLength = 0;
       } else {
-        for (var document in ReservedPagesDocumentList) {
-          var map = new Map<String, dynamic>.from(document.data());
+        for (var map in ReservedPagesDocumentList) {
           ResevedPagesList.add(map['isPage']);
         }
         ReservedPagesDocumentListLength = ReservedPagesDocumentList.length;
@@ -209,22 +199,27 @@ Future<double> calcLevel(
     String level, dynamic textId, int AllLevelPageListLength) async {
   List LevelPagesList = [];
   List LevelDocumentPagesList = [];
-  final getLevel = await FirebaseFirestore.instance
+
+  final snapshot = await FirebaseFirestore.instance
       .collection('users')
       .doc('$uid')
       .collection('text')
       .doc('$textId')
-      .collection('pages')
-      .where('rank', isEqualTo: level)
       .get();
+
+  final pages = (snapshot.data()['pages'] as List)
+      .map((e) => e as Map<String, dynamic>)
+      .toList();
+
+  final getLevel = pages.where((element) => element['rank'] == level).toList();
+
   // 取得したドキュメント一覧をUIに反映
-  LevelDocumentPagesList = getLevel.docs;
+  LevelDocumentPagesList = getLevel;
 
   if (LevelDocumentPagesList.length == 0) {
     return 0;
   } else {
-    for (var document in LevelDocumentPagesList) {
-      var map = new Map<String, dynamic>.from(document.data());
+    for (var map in LevelDocumentPagesList) {
       LevelPagesList.add(map['isPage']);
     }
     return ((LevelPagesList.length) / (AllLevelPageListLength)) * 100;

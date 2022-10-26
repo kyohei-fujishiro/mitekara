@@ -72,15 +72,20 @@ class textResultListPageModel extends ChangeNotifier {
   }
 
   Future getPages(textid) async {
-    final getpagefield = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc('$textid')
-        .collection('pages')
-        .orderBy('isPage', descending: false)
         .get();
-    pages = getpagefield.docs
+
+    final pagesMap = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    pagesMap.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
+
+    pages = pagesMap
         .map((doc) => PagesModel(
               doc['isPage'],
               doc['isRetake'],

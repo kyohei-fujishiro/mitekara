@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:manabiplus/learn/course_select_page_model.dart';
@@ -12,11 +13,22 @@ import 'package:manabiplus/text_entry_moel..dart';
 import 'package:provider/provider.dart';
 import 'AdBanner.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
+var _version = "";
+var _newVersion = '';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  _version = packageInfo.version;
   // Firebase
   await Firebase.initializeApp();
+  final snapshot = await FirebaseFirestore.instance
+      .collection('master')
+      .doc('version')
+      .get();
+  _newVersion = snapshot.data()['data'];
+
   MobileAds.instance.initialize();
   runApp(MyApp());
 }
@@ -45,7 +57,23 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
-          '/': (BuildContext context) => LoginPage(),
+          '/': (BuildContext context) => _version.compareTo(_newVersion) == -1
+              ? Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Color(0xff00FFD4).withOpacity(0.8),
+                    title: Center(
+                      child: const Text(
+                        "ミテカラ",
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: Color(0xff707070),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  body: Center(child: Text('ストア画面からアップデートをお願いします。')),
+                )
+              : LoginPage(),
         },
       ),
     );

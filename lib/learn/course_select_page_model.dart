@@ -52,6 +52,7 @@ class CourseSelectModel extends ChangeNotifier {
         .collection('text')
         .doc('$textid')
         .get();
+
     final pages = (snapshot.data()['pages'] as List)
         .map((e) => e as Map<String, dynamic>)
         .toList();
@@ -90,7 +91,7 @@ class CourseSelectModel extends ChangeNotifier {
 
     retakeGetPages
         .sort((a, b) => (a['isRetake'] as int).compareTo(b['isRetake']));
-    retakeGetPages.sort((a, b) => (a['days'] as int).compareTo(b['days']));
+    retakeGetPages.sort((a, b) => (a['days'] as double).compareTo(b['days']));
 
     for (var map in retakeGetPages) {
       print(map['isPage'].toString());

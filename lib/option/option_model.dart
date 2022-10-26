@@ -63,26 +63,6 @@ class OptionModel extends ChangeNotifier {
   String url = '';
   int x = 0;
 
-  Future InputPageField(
-      String item1, String item2, String item3, String item4) async {
-    final inputpagefiled = await FirebaseFirestore.instance
-        .collection('users')
-        .doc('$uid')
-        .collection('text')
-        .doc(textid)
-        .collection('pages')
-        .doc('$i')
-        .update({
-      'item1': item1,
-      'item2': item2,
-      'item3': item3,
-      'item4': item4,
-      'state': state,
-    });
-
-    notifyListeners();
-  }
-
   Future<void> launchUrl() async {
     url =
         "https://sof1020k.wixsite.com/mysite/%E8%A6%8F%E7%B4%84-%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC";

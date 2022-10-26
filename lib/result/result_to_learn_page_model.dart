@@ -83,33 +83,44 @@ class resultToLearnPageModel extends ChangeNotifier {
 
   Future InputPageField(
       String item1, String item2, String item3, String item4) async {
-    final inputpagefiled = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc(page.toString())
-        .update({
-      'item1': item1,
-      'item2': item2,
-      'item3': item3,
-      'item4': item4,
-      'state': state,
-    });
+        .get();
 
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+    pages[page - 1]['item1'] = item1;
+    pages[page - 1]['item2'] = item2;
+    pages[page - 1]['item3'] = item3;
+    pages[page - 1]['item4'] = item4;
+    pages[page - 1]['state'] = state;
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc(textid)
+        .update({'pages': pages});
     notifyListeners();
   }
 
   Future getRateFields(textid, page) async {
-    final getpageitem = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$page')
         .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    final getpageitem = pages[page - 1];
     item1 = getpageitem['item1'];
     item2 = getpageitem['item2'];
     item3 = getpageitem['item3'];
@@ -118,34 +129,32 @@ class resultToLearnPageModel extends ChangeNotifier {
     retake = getpageitem['isRetake'];
     print('$rank');
 
-    final getratefield = await FirebaseFirestore.instance
-        .collection('users')
-        .doc('$uid')
-        .collection('text')
-        .doc(textid)
-        .get();
     // 取得したドキュメント一覧をUIに反映
-    title = '${getratefield['name']}';
-    rate = '${getratefield['評価基準']}';
-    again = '${getratefield['again']}';
-    normal = '${getratefield['normal']}';
-    good = '${getratefield['good']}';
-    great = '${getratefield['great']}';
+    title = '${snapshot['name']}';
+    rate = '${snapshot['評価基準']}';
+    again = '${snapshot['again']}';
+    normal = '${snapshot['normal']}';
+    good = '${snapshot['good']}';
+    great = '${snapshot['great']}';
     print('$title');
-    print('$again');
 
     notifyListeners();
   }
 
   Future Days(double rankNumber, int RetakeNumber) async {
-    final getdayfield = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
-        .doc(textid)
-        .collection('pages')
-        .doc('$page')
+        .doc('$textid')
         .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    final getdayfield = pages[page - 1];
+
     days = getdayfield['days'];
     isStudyTimes = getdayfield['isStudyTimes'];
     days = days *
@@ -196,59 +205,78 @@ class resultToLearnPageModel extends ChangeNotifier {
     }
     isStudyTimes = isStudyTimes + 1;
 
-    final updatedaysfiled = await FirebaseFirestore.instance
+    pages[page - 1]['days'] = days;
+    pages[page - 1]['nextDay'] = Timestamp.fromDate(nextday);
+    pages[page - 1]['lastStudy'] = laststudy;
+    pages[page - 1]['isFirstTime'] = false;
+    pages[page - 1]['isStudyTimes'] = isStudyTimes;
+
+    pages[page - 1]['item1'] = item1;
+    pages[page - 1]['item2'] = item2;
+    pages[page - 1]['item3'] = item3;
+    pages[page - 1]['item4'] = item4;
+    pages[page - 1]['state'] = state;
+    pages[page - 1]['isRetake'] = retake;
+    pages[page - 1]['rank'] = rank;
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$page')
-        .update({
-      'days': days,
-      'nextDay': Timestamp.fromDate(nextday),
-      'lastStudy': laststudy,
-      'isFirstTime': false,
-      'isStudyTimes': isStudyTimes,
-      'item1': item1,
-      'item2': item2,
-      'item3': item3,
-      'item4': item4,
-      'state': state,
-      'isRetake': retake,
-      'rank': rank,
-    });
+        .update({'pages': pages});
     notifyListeners();
   }
 
   Future StateUpdate() async {
-    final StateUpDate = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc('$textid')
+        .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    pages[page - 1]['state'] = 'Reseve';
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$page')
-        .update({
-      'state': 'Reseve',
-    });
+        .update({'pages': pages});
     notifyListeners();
   }
 
   Future DeleteData() async {
-    final DeleteData = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc('$textid')
+        .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+
+    pages.removeAt(page - 1);
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
-        .collection('pages')
-        .doc('$page')
-        .delete();
+        .update({'pages': pages});
     notifyListeners();
   }
 
   // ignore: non_constant_identifier_names
   Future IfNextday(textid, page) async {
-    nextdayList = [];
+    nextdayList = ['', '', '', ''];
     List<double> rankNumberList = [0.8, 1.2, 2.7, 3.7];
     //todo retake>0でnextdayListに直接代入　2021/11/26
 
@@ -264,14 +292,19 @@ class resultToLearnPageModel extends ChangeNotifier {
       }
     } else if (retake == 0) {
       for (var rankNumber in rankNumberList) {
-        final getIfNextDayField = await FirebaseFirestore.instance
+        final snapshot = await FirebaseFirestore.instance
             .collection('users')
             .doc('$uid')
             .collection('text')
-            .doc(textid)
-            .collection('pages')
-            .doc('$page')
+            .doc('$textid')
             .get();
+
+        final pages = (snapshot.data()['pages'] as List)
+            .map((e) => e as Map<String, dynamic>)
+            .toList();
+
+        final getIfNextDayField = pages[page - 1];
+
         days = getIfNextDayField['days'];
         days = days *
             (rankNumber +
