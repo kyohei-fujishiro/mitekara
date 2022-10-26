@@ -23,7 +23,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
   // メッセージ表示用
 
   String textname = '間違えた数';
-  int pages = 0;
+  int pagecount = 0;
   String uselection = '間違えた数';
   String again = '';
   String normal = '';
@@ -148,7 +148,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
                 ),
                 onChanged: (text) {
                   // TODO:引数がわからない。 parseの使い方を調べる。
-                  pages = int.parse(text);
+                  pagecount = int.parse(text);
                 },
               ), //pages
 
@@ -225,7 +225,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
                       .doc()
                       .set({
                     'name': '$textname',
-                    'ページ数': pages,
+                    'ページ数': pagecount,
                     '評価基準': '$uselection',
                     'again': '$again',
                     'normal': '$normal',
@@ -261,17 +261,11 @@ class _TextEntryPageState extends State<TextEntryPage> {
                     maxpage = '${getmaxpage['ページ数']}';
                   });
                   var maxPageInt = int.parse(maxpage);
+                  final pages = <Map<String, dynamic>>[];
 
                   for (int i = 1; i <= maxPageInt; i++) {
                     page = i;
-                    FirebaseFirestore.instance
-                        .collection('users')
-                        .doc('$uid')
-                        .collection('text')
-                        .doc(textid)
-                        .collection('pages')
-                        .doc('$page')
-                        .set({
+                    pages.add({
                       'isPage': page,
                       'item1': '$item1',
                       'item2': '$item2',
@@ -288,6 +282,14 @@ class _TextEntryPageState extends State<TextEntryPage> {
                       'isStudyTimes': studyTimes,
                     });
                   }
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc('$uid')
+                      .collection('text')
+                      .doc(textid)
+                      .set({
+                    'pages': pages,
+                  }, SetOptions(merge: true));
 
                   Navigator.of(context).pop(true);
                   // MaterialPageRoute(
