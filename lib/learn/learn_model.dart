@@ -16,6 +16,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 String uid = FirebaseAuth.instance.currentUser.uid;
 
 class LearnModel extends ChangeNotifier {
+  int listIndexNumber = 0;
   int currentCourse = 0;
   int isStudyTimes = 0;
   String item1 = '';
