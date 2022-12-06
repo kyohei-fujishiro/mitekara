@@ -16,6 +16,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 String uid = FirebaseAuth.instance.currentUser.uid;
 
 class resultToLearnPageModel extends ChangeNotifier {
+  int listIndexNumber = 0;
   int currentCourse = 0;
   int isStudyTimes = 0;
   String item1 = '';
@@ -44,7 +45,7 @@ class resultToLearnPageModel extends ChangeNotifier {
   String great = '';
   String title = '';
   List<String> nextdayList = ['', '', '', ''];
-  List<DocumentSnapshot> pagesDocumentList = [];
+  List<Map<String, dynamic>> pagesDocumentList = [];
   List<DocumentSnapshot> textsDocumentList = [];
   List<List<charts.Series<dynamic, String>>> seriesList = [];
   List<String> textNameList = [];
@@ -83,6 +84,7 @@ class resultToLearnPageModel extends ChangeNotifier {
 
   Future InputPageField(
       String item1, String item2, String item3, String item4) async {
+    List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -93,11 +95,26 @@ class resultToLearnPageModel extends ChangeNotifier {
     final pages = (snapshot.data()['pages'] as List)
         .map((e) => e as Map<String, dynamic>)
         .toList();
-    pages[page - 1]['item1'] = item1;
-    pages[page - 1]['item2'] = item2;
-    pages[page - 1]['item3'] = item3;
-    pages[page - 1]['item4'] = item4;
-    pages[page - 1]['state'] = state;
+    final getPageField = pages.toList();
+
+    getPageField.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
+
+    pagesDocumentList = getPageField;
+    if (pagesDocumentList.length == 0) {
+      tasks = false;
+      print(tasks);
+    } else {
+      for (var map in pagesDocumentList) {
+        pageList.add(map['isPage']);
+      }
+      listIndexNumber = pageList.indexOf(page);
+    }
+
+    pages[listIndexNumber]['item1'] = item1;
+    pages[listIndexNumber]['item2'] = item2;
+    pages[listIndexNumber]['item3'] = item3;
+    pages[listIndexNumber]['item4'] = item4;
+    pages[listIndexNumber]['state'] = state;
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -142,6 +159,7 @@ class resultToLearnPageModel extends ChangeNotifier {
   }
 
   Future Days(double rankNumber, int RetakeNumber) async {
+    List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -153,7 +171,22 @@ class resultToLearnPageModel extends ChangeNotifier {
         .map((e) => e as Map<String, dynamic>)
         .toList();
 
-    final getdayfield = pages[page - 1];
+    final getPageField = pages.toList();
+
+    getPageField.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
+
+    pagesDocumentList = getPageField;
+    if (pagesDocumentList.length == 0) {
+      tasks = false;
+      print(tasks);
+    } else {
+      for (var map in pagesDocumentList) {
+        pageList.add(map['isPage']);
+      }
+      listIndexNumber = pageList.indexOf(page);
+    }
+
+    final getdayfield = pages[listIndexNumber];
 
     days = getdayfield['days'];
     isStudyTimes = getdayfield['isStudyTimes'];
@@ -205,19 +238,19 @@ class resultToLearnPageModel extends ChangeNotifier {
     }
     isStudyTimes = isStudyTimes + 1;
 
-    pages[page - 1]['days'] = days;
-    pages[page - 1]['nextDay'] = Timestamp.fromDate(nextday);
-    pages[page - 1]['lastStudy'] = laststudy;
-    pages[page - 1]['isFirstTime'] = false;
-    pages[page - 1]['isStudyTimes'] = isStudyTimes;
+    pages[listIndexNumber]['days'] = days;
+    pages[listIndexNumber]['nextDay'] = Timestamp.fromDate(nextday);
+    pages[listIndexNumber]['lastStudy'] = laststudy;
+    pages[listIndexNumber]['isFirstTime'] = false;
+    pages[listIndexNumber]['isStudyTimes'] = isStudyTimes;
 
-    pages[page - 1]['item1'] = item1;
-    pages[page - 1]['item2'] = item2;
-    pages[page - 1]['item3'] = item3;
-    pages[page - 1]['item4'] = item4;
-    pages[page - 1]['state'] = state;
-    pages[page - 1]['isRetake'] = retake;
-    pages[page - 1]['rank'] = rank;
+    pages[listIndexNumber]['item1'] = item1;
+    pages[listIndexNumber]['item2'] = item2;
+    pages[listIndexNumber]['item3'] = item3;
+    pages[listIndexNumber]['item4'] = item4;
+    pages[listIndexNumber]['state'] = state;
+    pages[listIndexNumber]['isRetake'] = retake;
+    pages[listIndexNumber]['rank'] = rank;
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -229,6 +262,7 @@ class resultToLearnPageModel extends ChangeNotifier {
   }
 
   Future StateUpdate() async {
+    List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -239,8 +273,21 @@ class resultToLearnPageModel extends ChangeNotifier {
     final pages = (snapshot.data()['pages'] as List)
         .map((e) => e as Map<String, dynamic>)
         .toList();
+    final getPageField = pages.toList();
+    getPageField.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
 
-    pages[page - 1]['state'] = 'Reseve';
+    pagesDocumentList = getPageField;
+    if (pagesDocumentList.length == 0) {
+      tasks = false;
+      print(tasks);
+    } else {
+      for (var map in pagesDocumentList) {
+        pageList.add(map['isPage']);
+      }
+      listIndexNumber = pageList.indexOf(page);
+    }
+
+    pages[listIndexNumber]['state'] = 'Reseve';
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -252,6 +299,7 @@ class resultToLearnPageModel extends ChangeNotifier {
   }
 
   Future DeleteData() async {
+    List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -263,7 +311,21 @@ class resultToLearnPageModel extends ChangeNotifier {
         .map((e) => e as Map<String, dynamic>)
         .toList();
 
-    pages.removeAt(page - 1);
+    final getPageField = pages.toList();
+    getPageField.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
+
+    pagesDocumentList = getPageField;
+    if (pagesDocumentList.length == 0) {
+      tasks = false;
+      print(tasks);
+    } else {
+      for (var map in pagesDocumentList) {
+        pageList.add(map['isPage']);
+      }
+      listIndexNumber = pageList.indexOf(page);
+    }
+
+    pages.removeAt(listIndexNumber);
 
     await FirebaseFirestore.instance
         .collection('users')

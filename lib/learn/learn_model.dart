@@ -232,6 +232,7 @@ class LearnModel extends ChangeNotifier {
 
   Future InputPageField(
       String item1, String item2, String item3, String item4) async {
+    List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -242,6 +243,22 @@ class LearnModel extends ChangeNotifier {
     final pages = (snapshot.data()['pages'] as List)
         .map((e) => e as Map<String, dynamic>)
         .toList();
+
+    final getPageField = pages.toList();
+
+    getPageField.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
+
+    pagesDocumentList = getPageField;
+    if (pagesDocumentList.length == 0) {
+      tasks = false;
+      print(tasks);
+    } else {
+      for (var map in pagesDocumentList) {
+        pageList.add(map['isPage']);
+      }
+      listIndexNumber = pageList.indexOf(i);
+    }
+
     pages[listIndexNumber]['item1'] = item1;
     pages[listIndexNumber]['item2'] = item2;
     pages[listIndexNumber]['item3'] = item3;
@@ -265,6 +282,7 @@ class LearnModel extends ChangeNotifier {
   }
 
   Future getRateFields(textid) async {
+    List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
@@ -275,6 +293,21 @@ class LearnModel extends ChangeNotifier {
     final pages = (snapshot.data()['pages'] as List)
         .map((e) => e as Map<String, dynamic>)
         .toList();
+
+    final getPageField = pages.toList();
+
+    getPageField.sort((a, b) => (a['isPage'] as int).compareTo(b['isPage']));
+
+    pagesDocumentList = getPageField;
+    if (pagesDocumentList.length == 0) {
+      tasks = false;
+      print(tasks);
+    } else {
+      for (var map in pagesDocumentList) {
+        pageList.add(map['isPage']);
+      }
+      listIndexNumber = pageList.indexOf(i);
+    }
 
     // final getpageitem = pages[i - 1];
     final getpageitem = pages[listIndexNumber];

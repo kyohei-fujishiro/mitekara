@@ -71,7 +71,7 @@ class CourseSelectModel extends ChangeNotifier {
     final reviewGetPages = pages
         .where((element) => element['isFirstTime'] == false)
         .where((element) => element['state'] == '')
-        .where((element) => element['isisRetake'] == 0)
+        .where((element) => element['isRetake'] == 0)
         .where((element) =>
             (element['nextDay'] as Timestamp).compareTo(today) <= 0)
         .toList();
