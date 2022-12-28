@@ -400,7 +400,7 @@ class resultToLearnPage extends StatelessWidget {
                                             width: 1.5),
                                       ),
                                       onPressed: () async {
-                                        await model.Days(2.7, 0);
+                                        await model.Days(2.8, 0);
                                         Navigator.of(context).pop(true);
                                       },
                                     ),
@@ -464,7 +464,7 @@ class resultToLearnPage extends StatelessWidget {
                                           color: Color(0xff707070), width: 1.5),
                                     ),
                                     onPressed: () async {
-                                      await model.Days(3.7, 0);
+                                      await model.Days(4.5, 0);
                                       Navigator.of(context).pop(true);
                                     },
                                   ),

@@ -453,7 +453,7 @@ class LearnPage extends StatelessWidget {
                                               width: 1.5),
                                         ),
                                         onPressed: () async {
-                                          await model.Days(2.7, 0);
+                                          await model.Days(2.8, 0);
                                           await model.GetPage();
                                         },
                                       ),
@@ -523,7 +523,7 @@ class LearnPage extends StatelessWidget {
                                                   width: 1.5),
                                             ),
                                             onPressed: () async {
-                                              await model.Days(3.7, 0);
+                                              await model.Days(4.5, 0);
                                               await model.GetPage();
                                             },
                                           ),
