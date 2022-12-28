@@ -44,7 +44,7 @@ class resultToLearnPageModel extends ChangeNotifier {
   String good = '';
   String great = '';
   String title = '';
-  List<String> nextdayList = ['', '', '', ''];
+  List<String> ifnextdayList = ['', '', '', ''];
   List<Map<String, dynamic>> pagesDocumentList = [];
   List<DocumentSnapshot> textsDocumentList = [];
   List<List<charts.Series<dynamic, String>>> seriesList = [];
@@ -338,8 +338,8 @@ class resultToLearnPageModel extends ChangeNotifier {
 
   // ignore: non_constant_identifier_names
   Future IfNextday(textid, page) async {
-    nextdayList = ['', '', '', ''];
-    List<double> rankNumberList = [0.8, 1.2, 2.7, 3.7];
+    final nextNewDayList = <String>[];
+    List<double> rankNumberList = [0.8, 1.2, 2.8, 4.5];
     //todo retake>0でnextdayListに直接代入　2021/11/26
 
     if (retake != 0) {
@@ -350,7 +350,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         nextday = now.add(Duration(days: addday));
         DateFormat NextdayFormat = DateFormat('MM月dd日');
         String NextDayString = NextdayFormat.format(nextday);
-        nextdayList.add(NextDayString);
+        ifnextdayList.add(NextDayString);
       }
     } else if (retake == 0) {
       for (var rankNumber in rankNumberList) {
@@ -384,10 +384,10 @@ class resultToLearnPageModel extends ChangeNotifier {
         nextday = now.add(Duration(days: addday));
         DateFormat NextdayFormat = DateFormat('MM月dd日');
         String NextDayString = NextdayFormat.format(nextday);
-        nextdayList.add(NextDayString);
+        nextNewDayList.add(NextDayString);
       }
     }
-
+    ifnextdayList = nextNewDayList;
     notifyListeners();
   }
 }

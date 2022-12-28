@@ -272,7 +272,7 @@ class resultToLearnPage extends StatelessWidget {
                                     child: FittedBox(
                                       // fit: BoxFit.scaleDown,
                                       child: Text(
-                                        model.nextdayList[0],
+                                        model.ifnextdayList[0],
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
@@ -343,7 +343,7 @@ class resultToLearnPage extends StatelessWidget {
                                     child: FittedBox(
                                       // fit: BoxFit.scaleDown,
                                       child: Text(
-                                        model.nextdayList[1],
+                                        model.ifnextdayList[1],
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
@@ -411,7 +411,7 @@ class resultToLearnPage extends StatelessWidget {
                                     child: FittedBox(
                                       // fit: BoxFit.scaleDown,
                                       child: Text(
-                                        model.nextdayList[2],
+                                        model.ifnextdayList[2],
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
@@ -477,7 +477,7 @@ class resultToLearnPage extends StatelessWidget {
                                   child: FittedBox(
                                     // fit: BoxFit.scaleDown,
                                     child: Text(
-                                      model.nextdayList[3],
+                                      model.ifnextdayList[3],
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25,
