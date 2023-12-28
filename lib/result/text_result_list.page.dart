@@ -56,9 +56,12 @@ class _TextResultListPageState extends State<TextResultListPage> {
                     cells: [
                       DataCell(
                         Container(
-                          width: devicewidth * 0.075,
+                          width: devicewidth * 0.055,
                           child: GestureDetector(
-                            child: Text(model.pages[index].isPage.toString()),
+                            child: Text(
+                              model.pages[index].isPage.toString(),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                             onTap: () async {
                               page = model.pages[index].isPage;
                               await Navigator.push(
@@ -77,34 +80,59 @@ class _TextResultListPageState extends State<TextResultListPage> {
                           ),
                         ),
                       ),
-                      DataCell(Text(model.pages[index].rank.toString())),
+                      DataCell(Text(
+                        model.pages[index].state.toString(),
+                        overflow: TextOverflow.ellipsis,
+                      )),
+                      DataCell(Text(
+                        model.pages[index].rank.toString(),
+                        overflow: TextOverflow.ellipsis,
+                      )),
                       DataCell(
-                        Text(model.pages[index].lastStudy == null
-                            ? ''
-                            : outputFormat
-                                .format(model.pages[index].lastStudy.toDate())),
+                        Text(
+                          model.pages[index].lastStudy == null
+                              ? ''
+                              : outputFormat.format(
+                                  model.pages[index].lastStudy.toDate()),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       DataCell(
-                        Text(model.pages[index].nextDay == null
-                            ? ''
-                            : outputFormat
-                                .format(model.pages[index].nextDay.toDate())),
+                        Text(
+                          model.pages[index].nextDay == null
+                              ? ''
+                              : outputFormat
+                                  .format(model.pages[index].nextDay.toDate()),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      DataCell(Text(model.pages[index].state.toString())),
+                      // DataCell(Text(model.pages[index].state.toString())),
                       DataCell(
                         // Text(model.pages[index].studyTimes.toString())
-                        Text(model.pages[index].studyTimes == null
-                            ? '0'
-                            : (model.pages[index].studyTimes.toString())),
+                        Text(
+                          model.pages[index].studyTimes == null
+                              ? '0'
+                              : (model.pages[index].studyTimes.toString()),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       DataCell(
-                        Text(model.pages[index].isRetake.toString()),
+                        Text(
+                          model.pages[index].isRetake.toString(),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       DataCell(
-                        Text(model.pages[index].item1.toString()),
+                        Text(
+                          model.pages[index].item1.toString(),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       DataCell(
-                        Text(model.pages[index].item2.toString()),
+                        Text(
+                          model.pages[index].item2.toString(),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   );
@@ -124,6 +152,13 @@ class _TextResultListPageState extends State<TextResultListPage> {
                             onSort: (columnIndex, isAscendin) {
                               setState(() {
                                 sortTable(columnIndex, pages, 'isPage');
+                              });
+                            }),
+                        DataColumn(
+                            label: Text('状態'),
+                            onSort: (columnIndex, isAscendin) {
+                              setState(() {
+                                sortTable(columnIndex, pages, 'state');
                               });
                             }),
                         DataColumn(
@@ -147,13 +182,13 @@ class _TextResultListPageState extends State<TextResultListPage> {
                                 sortTable(columnIndex, pages, 'nextDay');
                               });
                             }),
-                        DataColumn(
-                            label: Text('状態'),
-                            onSort: (columnIndex, isAscendin) {
-                              setState(() {
-                                sortTable(columnIndex, pages, 'state');
-                              });
-                            }),
+                        // DataColumn(
+                        //     label: Text('状態'),
+                        //     onSort: (columnIndex, isAscendin) {
+                        //       setState(() {
+                        //         sortTable(columnIndex, pages, 'state');
+                        //       });
+                        //     }),
                         DataColumn(
                             label: Text('学習回数'),
                             onSort: (columnIndex, isAscendin) {

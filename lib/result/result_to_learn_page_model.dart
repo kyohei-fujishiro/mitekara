@@ -1,15 +1,12 @@
 import 'dart:core';
-import 'dart:developer';
 
-import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:manabiplus/learn/lern_page_filed.dart';
-import '../main.dart';
+
 import 'package:intl/intl.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -370,7 +367,8 @@ class resultToLearnPageModel extends ChangeNotifier {
         days = getIfNextDayField['days'];
         days = days *
             (rankNumber +
-                ((0.1) - (5 - rankNumber) * (0.08 + (5 - rankNumber) * 0.02)));
+                ((0.1) -
+                    (5.0 - rankNumber) * (0.08 + (5 - rankNumber) * 0.02)));
 
         if (days <= 1) {
           days = 1;

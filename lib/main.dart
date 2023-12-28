@@ -21,6 +21,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
   _version = packageInfo.version;
+  print("_version = $_version"); // バージョン情報を出力する
   // Firebase
   await Firebase.initializeApp();
   final snapshot = await FirebaseFirestore.instance
@@ -28,6 +29,7 @@ Future<void> main() async {
       .doc('version')
       .get();
   _newVersion = snapshot.data()['data'];
+  print("_newVersion = $_newVersion"); // バージョン情報を出力する
 
   MobileAds.instance.initialize();
   runApp(MyApp());
