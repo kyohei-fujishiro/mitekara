@@ -56,7 +56,9 @@ class LearnPage extends StatelessWidget {
             ),
           ),
         ),
-        body: SingleChildScrollView(
+        body:
+            //isloading 場合わけ　trueの場合　コンテナ　false
+            SingleChildScrollView(
           child: FutureBuilder(
               future: Provider.of<LearnModel>(context, listen: false)
                   .initialize(textid, course),

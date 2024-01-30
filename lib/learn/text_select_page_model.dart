@@ -41,6 +41,7 @@ class TextSelectPageModel extends ChangeNotifier {
   List<int> newPageList = [];
   List<int> reviewPageList = [];
   List<int> retakePageList = [];
+  bool isLoading = false;
 
   Future<int> GetText() async {
     textIdList = [];

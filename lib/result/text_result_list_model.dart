@@ -104,4 +104,30 @@ class textResultListPageModel extends ChangeNotifier {
     this.pages = pages;
     notifyListeners();
   }
+
+  Future stateUpate(String textid, int UpdatePage) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc('$textid')
+        .get();
+
+    final pages = (snapshot.data()['pages'] as List)
+        .map((e) => e as Map<String, dynamic>)
+        .toList();
+    print(pages);
+
+    pages[UpdatePage]['state'] =
+        (pages[UpdatePage]['state'] == 'Reseve') ? '' : 'Reseve';
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc('$uid')
+        .collection('text')
+        .doc(textid)
+        .update({'pages': pages});
+    notifyListeners();
+    getPages(textid);
+  }
 }

@@ -80,9 +80,19 @@ class _TextResultListPageState extends State<TextResultListPage> {
                           ),
                         ),
                       ),
-                      DataCell(Text(
-                        model.pages[index].state.toString(),
-                        overflow: TextOverflow.ellipsis,
+                      DataCell(Container(
+                        child: GestureDetector(
+                          child: Text(
+                            model.pages[index].state.toString(),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          onTap: () async {
+                            print('保留のボタン押されたよ');
+                            // page = model.pages[index].isPage;
+                            print(index);
+                            await model.stateUpate(widget.textid, index);
+                          },
+                        ),
                       )),
                       DataCell(Text(
                         model.pages[index].rank.toString(),

@@ -49,6 +49,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
   List<DocumentSnapshot> textsDocumentList = [];
   List<dynamic> textIdList = [];
   String textid = '';
+  bool isLoading = false;
 
   int studyTimes;
   var _image;
@@ -129,181 +130,195 @@ class _TextEntryPageState extends State<TextEntryPage> {
           ),
         ),
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              TextField(
-                decoration: InputDecoration(
-                  hintText: '教材名を入力　例：英語基礎問題集',
-                ),
-                onChanged: (text) {
-                  // TODO: ここで取得したtextを使う
-                  textname = text;
-                },
+      body: Stack(
+        children: [
+          Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: '教材名を入力　例：英語基礎問題集',
+                    ),
+                    onChanged: (text) {
+                      // TODO: ここで取得したtextを使う
+                      textname = text;
+                    },
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: ' 教材の最終ページ数を数字で入力　例：315',
+                    ),
+                    onChanged: (text) {
+                      // TODO:引数がわからない。 parseの使い方を調べる。
+                      pagecount = int.parse(text);
+                    },
+                  ), //pages
+
+                  TextFormField(
+                    initialValue: "評価の基準を入力：間違えた数",
+                    onChanged: (value) {
+                      // TODO: ここで取得したtextを使う
+                      uselection = value;
+                    },
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'againの基準を入力：２問間違えた',
+                    ),
+                    onChanged: (value) {
+                      // TODO: ここで取得したtextを使う
+                      again = value;
+                    },
+                  ), //again
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'normalの基準を入力：１問間違えた',
+                    ),
+                    onChanged: (value) {
+                      // TODO: ここで取得したtextを使う
+                      normal = value;
+                    },
+                  ), //normal
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'goodの基準を入力：全問正解（自信なし）',
+                    ),
+                    onChanged: (value) {
+                      // TODO: ここで取得したtextを使う
+                      good = value;
+                    },
+                  ), //good
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'greatの基準を入力：全問正解(自信あり)',
+                    ),
+                    onChanged: (value) {
+                      // TODO: ここで取得したtextを使う
+                      great = value;
+                    },
+                  ),
+
+                  IconButton(
+                    onPressed: getImage,
+                    // 表示アイコン
+                    icon: Icon(Icons.camera_alt_rounded),
+                    // アイコン色
+                    color: Color(0xff00FFD4).withOpacity(0.9),
+                    // サイズ
+                    iconSize: devicewidth * 0.15,
+                  ),
+
+                  Container(
+                    child: _image == null
+                        ? Text('No image selected.')
+                        : Image.file(_image),
+                  ),
+                  ElevatedButton(
+                    child: Text('新規教材を登録する'),
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      String uid = FirebaseAuth.instance.currentUser.uid;
+                      final downloadurl = await uploadFile();
+
+                      final textEntry = await FirebaseFirestore.instance
+                          // ドキュメント作成
+                          .collection('users')
+                          .doc('$uid')
+                          .collection('text')
+                          .doc()
+                          .set({
+                        'name': '$textname',
+                        'ページ数': pagecount,
+                        '評価基準': '$uselection',
+                        'again': '$again',
+                        'normal': '$normal',
+                        'good': '$good',
+                        'great': '$great',
+                        '作成日': Timestamp.now(),
+                        'imageurl': downloadurl,
+                      });
+
+                      textIdList = [];
+                      final gettext = await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc('$uid')
+                          .collection('text')
+                          .orderBy('作成日', descending: false)
+                          .get();
+
+                      gettext.docs.forEach((doc) async {
+                        textid = doc.id;
+                        textIdList.add(doc.id);
+                      });
+                      textid = textIdList.last;
+                      print(textid);
+
+                      final getmaxpage = await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc('$uid')
+                          .collection('text')
+                          .doc(textid)
+                          .get();
+
+                      setState(() {
+                        maxpage = '${getmaxpage['ページ数']}';
+                      });
+                      var maxPageInt = int.parse(maxpage);
+                      final pages = <Map<String, dynamic>>[];
+
+                      for (int i = 1; i <= maxPageInt; i++) {
+                        page = i;
+                        pages.add({
+                          'isPage': page,
+                          'item1': '$item1',
+                          'item2': '$item2',
+                          'item3': '$item3',
+                          'item4': '$item4',
+                          'rank': 'Level1',
+                          'days': days,
+                          'nextDay': nextday,
+                          'nextStudySchedule': NextstudySchedule,
+                          'lastStudy': laststudy,
+                          'isFirstTime': true,
+                          'state': state,
+                          'isRetake': retake,
+                          'isStudyTimes': studyTimes,
+                        });
+                      }
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc('$uid')
+                          .collection('text')
+                          .doc(textid)
+                          .set({
+                        'pages': pages,
+                      }, SetOptions(merge: true));
+                      setState(() {
+                        isLoading = false;
+                      });
+                      Navigator.of(context).pop(true);
+                      // MaterialPageRoute(
+                      //   builder: (context) => text_entry_model(), /
+                      //   fullscreenDialog: true,
+                      // ),
+                    },
+                  ),
+
+                  //great
+                ],
               ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: ' 教材の最終ページ数を数字で入力　例：315',
-                ),
-                onChanged: (text) {
-                  // TODO:引数がわからない。 parseの使い方を調べる。
-                  pagecount = int.parse(text);
-                },
-              ), //pages
-
-              TextFormField(
-                initialValue: "評価の基準を入力：間違えた数",
-                onChanged: (value) {
-                  // TODO: ここで取得したtextを使う
-                  uselection = value;
-                },
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'againの基準を入力：２問間違えた',
-                ),
-                onChanged: (value) {
-                  // TODO: ここで取得したtextを使う
-                  again = value;
-                },
-              ), //again
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'normalの基準を入力：１問間違えた',
-                ),
-                onChanged: (value) {
-                  // TODO: ここで取得したtextを使う
-                  normal = value;
-                },
-              ), //normal
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'goodの基準を入力：全問正解（自信なし）',
-                ),
-                onChanged: (value) {
-                  // TODO: ここで取得したtextを使う
-                  good = value;
-                },
-              ), //good
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'greatの基準を入力：全問正解(自信あり)',
-                ),
-                onChanged: (value) {
-                  // TODO: ここで取得したtextを使う
-                  great = value;
-                },
-              ),
-
-              IconButton(
-                onPressed: getImage,
-                // 表示アイコン
-                icon: Icon(Icons.camera_alt_rounded),
-                // アイコン色
-                color: Color(0xff00FFD4).withOpacity(0.9),
-                // サイズ
-                iconSize: devicewidth * 0.15,
-              ),
-
-              Container(
-                child: _image == null
-                    ? Text('No image selected.')
-                    : Image.file(_image),
-              ),
-              ElevatedButton(
-                child: Text('新規教材を登録する'),
-                onPressed: () async {
-                  String uid = FirebaseAuth.instance.currentUser.uid;
-                  final downloadurl = await uploadFile();
-
-                  final textEntry = await FirebaseFirestore.instance
-                      // ドキュメント作成
-                      .collection('users')
-                      .doc('$uid')
-                      .collection('text')
-                      .doc()
-                      .set({
-                    'name': '$textname',
-                    'ページ数': pagecount,
-                    '評価基準': '$uselection',
-                    'again': '$again',
-                    'normal': '$normal',
-                    'good': '$good',
-                    'great': '$great',
-                    '作成日': Timestamp.now(),
-                    'imageurl': downloadurl,
-                  });
-
-                  textIdList = [];
-                  final gettext = await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc('$uid')
-                      .collection('text')
-                      .orderBy('作成日', descending: false)
-                      .get();
-
-                  gettext.docs.forEach((doc) async {
-                    textid = doc.id;
-                    textIdList.add(doc.id);
-                  });
-                  textid = textIdList.last;
-                  print(textid);
-
-                  final getmaxpage = await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc('$uid')
-                      .collection('text')
-                      .doc(textid)
-                      .get();
-
-                  setState(() {
-                    maxpage = '${getmaxpage['ページ数']}';
-                  });
-                  var maxPageInt = int.parse(maxpage);
-                  final pages = <Map<String, dynamic>>[];
-
-                  for (int i = 1; i <= maxPageInt; i++) {
-                    page = i;
-                    pages.add({
-                      'isPage': page,
-                      'item1': '$item1',
-                      'item2': '$item2',
-                      'item3': '$item3',
-                      'item4': '$item4',
-                      'rank': 'Level1',
-                      'days': days,
-                      'nextDay': nextday,
-                      'nextStudySchedule': NextstudySchedule,
-                      'lastStudy': laststudy,
-                      'isFirstTime': true,
-                      'state': state,
-                      'isRetake': retake,
-                      'isStudyTimes': studyTimes,
-                    });
-                  }
-                  FirebaseFirestore.instance
-                      .collection('users')
-                      .doc('$uid')
-                      .collection('text')
-                      .doc(textid)
-                      .set({
-                    'pages': pages,
-                  }, SetOptions(merge: true));
-
-                  Navigator.of(context).pop(true);
-                  // MaterialPageRoute(
-                  //   builder: (context) => text_entry_model(), /
-                  //   fullscreenDialog: true,
-                  // ),
-                },
-              ),
-
-              //great
-            ],
+            ),
+            width: double.infinity,
           ),
-        ),
-        width: double.infinity,
+          if (isLoading)
+            Container(
+              color: Colors.black12,
+              child: Center(child: CircularProgressIndicator()),
+            )
+        ],
       ),
     );
   }

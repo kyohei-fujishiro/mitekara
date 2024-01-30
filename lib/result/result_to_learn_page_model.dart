@@ -284,7 +284,8 @@ class resultToLearnPageModel extends ChangeNotifier {
       listIndexNumber = pageList.indexOf(page);
     }
 
-    pages[listIndexNumber]['state'] = 'Reseve';
+    pages[listIndexNumber]['state'] =
+        (pages[listIndexNumber]['state'] == 'Reseve') ? '' : 'Reseve';
 
     await FirebaseFirestore.instance
         .collection('users')

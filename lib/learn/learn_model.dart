@@ -333,6 +333,8 @@ class LearnModel extends ChangeNotifier {
   }
 
   Future Days(double rankNumber, int RetakeNumber) async {
+    //upLoading = true
+    // notifyListeners();
     List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -449,7 +451,7 @@ class LearnModel extends ChangeNotifier {
         .collection('text')
         .doc(textid)
         .update({'pages': pages});
-
+    //upLoading = false
     notifyListeners();
   }
 
@@ -480,7 +482,8 @@ class LearnModel extends ChangeNotifier {
       listIndexNumber = pageList.indexOf(i);
     }
 
-    pages[listIndexNumber]['state'] = 'Reseve';
+    pages[listIndexNumber]['state'] =
+        (pages[listIndexNumber]['state'] == 'Reseve') ? '' : 'Reseve';
 
     await FirebaseFirestore.instance
         .collection('users')
