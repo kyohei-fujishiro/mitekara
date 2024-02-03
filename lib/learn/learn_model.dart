@@ -60,6 +60,7 @@ class LearnModel extends ChangeNotifier {
   List AllLevelPagesDocumentList;
   double LearnedPagesRate;
   double ResevedPagesRate;
+  bool learnPageLoading = false;
 
   int x = 0;
 
@@ -332,9 +333,13 @@ class LearnModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future Days(double rankNumber, int RetakeNumber) async {
-    //upLoading = true
-    // notifyListeners();
+  Future Days(
+    double rankNumber,
+    int RetakeNumber,
+  ) async {
+    learnPageLoading = true;
+    notifyListeners();
+    await Future.delayed(Duration(milliseconds: 150));
     List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -431,27 +436,14 @@ class LearnModel extends ChangeNotifier {
     pages[listIndexNumber]['isRetake'] = retake;
     pages[listIndexNumber]['rank'] = rank;
 
-    // pages[i - 1]['days'] = days;
-    // pages[i - 1]['nextDay'] = Timestamp.fromDate(nextday);
-    // pages[i - 1]['lastStudy'] = laststudy;
-    // pages[i - 1]['isFirstTime'] = false;
-    // pages[i - 1]['isStudyTimes'] = isStudyTimes;
-    //
-    // pages[i - 1]['item1'] = item1;
-    // pages[i - 1]['item2'] = item2;
-    // pages[i - 1]['item3'] = item3;
-    // pages[i - 1]['item4'] = item4;
-    // pages[i - 1]['state'] = state;
-    // pages[i - 1]['isRetake'] = retake;
-    // pages[i - 1]['rank'] = rank;
-
     await FirebaseFirestore.instance
         .collection('users')
         .doc('$uid')
         .collection('text')
         .doc(textid)
         .update({'pages': pages});
-    //upLoading = false
+
+    learnPageLoading = false;
     notifyListeners();
   }
 
