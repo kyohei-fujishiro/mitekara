@@ -9,11 +9,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manabiplus/learn/lern_page_filed.dart';
+import '../learn/course_select_page_model.dart';
 import '../main.dart';
 import 'package:intl/intl.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
-String uid = FirebaseAuth.instance.currentUser.uid;
 
 class resultListPageModel extends ChangeNotifier {
   int currentCourse = 2;
@@ -24,9 +23,9 @@ class resultListPageModel extends ChangeNotifier {
   String rank = '';
   double days = 1;
   int addday = 0;
-  DateTime nextday;
-  DateTime laststudy;
-  DateTime NextstudySchedule;
+  DateTime? nextday;
+  DateTime? laststudy;
+  DateTime? NextstudySchedule;
   int retake = 0;
   String state = '';
   int i = 0;
@@ -55,13 +54,13 @@ class resultListPageModel extends ChangeNotifier {
   List resultTextIdList = [];
   List resultTitleList = [];
   List resultRankList = [];
-  int resultMaxpages;
-  List<Map<String, dynamic>> AllLevelPagesDocumentList;
-  double LearnedPagesRate;
-  double ResevedPagesRate;
+  int? resultMaxpages;
+  List<Map<String, dynamic>> AllLevelPagesDocumentList = [];
+  double? LearnedPagesRate;
+  double? ResevedPagesRate;
   int x = 0;
-  int LearnedPagesListLength;
-  int ReservedPagesDocumentListLength;
+  int LearnedPagesListLength = 0;
+  int ReservedPagesDocumentListLength = 0;
 
   Future getGraphData() async {
     // firebaseからresultDateを取得
@@ -112,7 +111,7 @@ class resultListPageModel extends ChangeNotifier {
           .doc('$textId')
           .get();
 
-      final pages = (snapshot.data()['pages'] as List)
+      final pages = (snapshot.data()?['pages'] as List ?? [])
           .map((e) => e as Map<String, dynamic>)
           .toList();
 
@@ -165,9 +164,9 @@ class resultListPageModel extends ChangeNotifier {
       final resultDate = [
         Level('', 100, charts.MaterialPalette.white),
         Level(
-            '進捗', LearnedPagesRate, charts.MaterialPalette.green.shadeDefault),
-        Level(
-            '保留', ResevedPagesRate, charts.MaterialPalette.yellow.shadeDefault),
+            '進捗', LearnedPagesRate!, charts.MaterialPalette.green.shadeDefault),
+        Level('保留', ResevedPagesRate!,
+            charts.MaterialPalette.yellow.shadeDefault),
         Level('Level1', Level1Rate, charts.MaterialPalette.blue.shadeDefault),
         Level('Level2', Level2Rate, charts.MaterialPalette.blue.shadeDefault),
         Level('Level3', Level3Rate, charts.MaterialPalette.blue.shadeDefault),
@@ -207,7 +206,7 @@ Future<double> calcLevel(
       .doc('$textId')
       .get();
 
-  final pages = (snapshot.data()['pages'] as List)
+  final pages = (snapshot.data()?['pages'] as List ?? [])
       .map((e) => e as Map<String, dynamic>)
       .toList();
 

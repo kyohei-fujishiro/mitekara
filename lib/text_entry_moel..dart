@@ -6,6 +6,7 @@ import 'package:manabiplus/home_screen.dart';
 import 'package:manabiplus/sinup/user_info_page.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import 'learn/course_select_page_model.dart';
 
 // Future<void> main() async {
 //   // Fireabse初期化
@@ -16,7 +17,6 @@ import '../main.dart';
 /* --- 省略 --- */
 
 // ログイン画面用Widget
-String uid = FirebaseAuth.instance.currentUser.uid;
 
 class TextEntryModel extends ChangeNotifier {
   String textname = '間違えた数';
@@ -36,18 +36,17 @@ class TextEntryModel extends ChangeNotifier {
   String item4 = '';
   String rank = '';
   double days = 1.0;
-  DateTime nextday;
+  DateTime? nextday;
   String state = '';
   int page = 1;
   int retake = 0;
-  DateTime laststudy;
-  DateTime NextstudySchedule;
-  String uid = FirebaseAuth.instance.currentUser.uid;
+  DateTime? laststudy;
+  DateTime? NextstudySchedule;
   List<DocumentSnapshot> textsDocumentList = [];
   List<dynamic> textIdList = [];
   String textid = '';
 
-  int studyTimes;
+  int? studyTimes;
   var _image;
 
   Future makeNewText() async {

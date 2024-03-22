@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import 'dart:async';
 
+import 'learn/course_select_page_model.dart';
+
 /* --- 省略 --- */
 
 class TextEntryPage extends StatefulWidget {
@@ -39,24 +41,24 @@ class _TextEntryPageState extends State<TextEntryPage> {
   String item4 = '';
   String rank = '';
   double days = 1.0;
-  DateTime nextday;
+  DateTime? nextday;
   String state = '';
   int page = 1;
   int retake = 0;
-  DateTime laststudy;
-  DateTime NextstudySchedule;
-  String uid = FirebaseAuth.instance.currentUser.uid;
+  DateTime? laststudy;
+  DateTime? NextstudySchedule;
   List<DocumentSnapshot> textsDocumentList = [];
   List<dynamic> textIdList = [];
   String textid = '';
   bool isLoading = false;
 
-  int studyTimes;
+  int? studyTimes;
   var _image;
   final picker = ImagePicker();
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    // final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -64,7 +66,7 @@ class _TextEntryPageState extends State<TextEntryPage> {
     });
   }
 
-  Future<String> uploadFile() async {
+  Future<String?> uploadFile() async {
     if (_image == null) {
       return null;
     }
@@ -220,7 +222,6 @@ class _TextEntryPageState extends State<TextEntryPage> {
                       setState(() {
                         isLoading = true;
                       });
-                      String uid = FirebaseAuth.instance.currentUser.uid;
                       final downloadurl = await uploadFile();
 
                       final textEntry = await FirebaseFirestore.instance

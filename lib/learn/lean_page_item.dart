@@ -102,7 +102,7 @@ class _LeanPageItemState extends State<LeanPageItem> {
                   child: Text('変更決定'),
                   onPressed: () async {
                     await model.InputPageField(item1, item2, item3, item4);
-                    await Navigator.of(context).pop(); //todo　画面が更新されないよ
+                    Navigator.of(context).pop(); //todo　画面が更新されないよ
                   },
                 ),
 

@@ -14,8 +14,6 @@ import 'package:intl/intl.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:url_launcher/url_launcher.dart';
 
-String uid = FirebaseAuth.instance.currentUser.uid;
-
 class OptionModel extends ChangeNotifier {
   int currentCourse = 0;
   String item1 = '';
@@ -25,9 +23,9 @@ class OptionModel extends ChangeNotifier {
   String rank = '';
   double days = 1.0;
   int addday = 0;
-  DateTime nextday;
-  DateTime laststudy;
-  DateTime NextstudySchedule;
+  DateTime? nextday;
+  DateTime? laststudy;
+  DateTime? NextstudySchedule;
   int retake = 0;
   String state = '';
   int i = 0;
@@ -53,13 +51,13 @@ class OptionModel extends ChangeNotifier {
   List<int> reviewPageList = [];
   List<int> retakePageList = [];
 
-  List resultTextIdList;
-  List resultTitleList;
-  List resultRankList;
-  int resultMaxpages;
-  List AllLevelPagesDocumentList;
-  double LearnedPagesRate;
-  double ResevedPagesRate;
+  List? resultTextIdList;
+  List? resultTitleList;
+  List? resultRankList;
+  int? resultMaxpages;
+  List? AllLevelPagesDocumentList;
+  double? LearnedPagesRate;
+  double? ResevedPagesRate;
   String url = '';
   int x = 0;
 

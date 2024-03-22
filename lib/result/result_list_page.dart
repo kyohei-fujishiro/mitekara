@@ -22,7 +22,7 @@ class ResultListPage extends StatefulWidget {
 }
 
 class _ResultListPageState extends State<ResultListPage> {
-  int textindex;
+  int? textindex;
   String textid = '';
 
   @override

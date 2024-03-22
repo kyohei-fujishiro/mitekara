@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-String uid = FirebaseAuth.instance.currentUser.uid;
+final uid = FirebaseAuth.instance.currentUser?.uid;
 
 class CourseSelectModel extends ChangeNotifier {
   String state = '';
@@ -53,7 +53,7 @@ class CourseSelectModel extends ChangeNotifier {
         .doc('$textid')
         .get();
 
-    final pages = (snapshot.data()['pages'] as List)
+    final pages = (snapshot.data()?['pages'] as List? ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
 

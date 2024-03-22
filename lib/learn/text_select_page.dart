@@ -16,7 +16,7 @@ class TextSelectPage extends StatelessWidget {
     print('build');
     final double devicewidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    TextSelectPageModel textSelectPageModel;
+    TextSelectPageModel? textSelectPageModel;
     return Scaffold(
       body: FutureBuilder(
         future:
@@ -40,7 +40,7 @@ class TextSelectPage extends StatelessWidget {
                     model.titleList.length,
                     (index) {
                       return Center(
-                          child: FlatButton(
+                          child: TextButton(
                         child: Column(
                           children: [
                             Container(
@@ -108,16 +108,16 @@ class TextSelectPage extends StatelessWidget {
                                 title: Text('一度消去したらこのテキストのデータは完全に消えます'),
                                 content: Text('このテキストを消去しますか？'),
                                 actions: <Widget>[
-                                  FlatButton(
+                                  TextButton(
                                     child: Text("CANCEL"),
                                     onPressed: () => Navigator.pop(context),
                                   ),
-                                  FlatButton(
+                                  TextButton(
                                       child: Text("OK"),
                                       onPressed: () async {
                                         await model.DeleteText(textid);
                                         await model.GetText();
-                                        await Navigator.pop(context);
+                                        Navigator.pop(context);
                                       }),
                                 ],
                               );
@@ -140,8 +140,8 @@ class TextSelectPage extends StatelessWidget {
               return TextEntryPage();
             }),
           );
-          if (result) {
-            await textSelectPageModel.GetText();
+          if (result ?? false) {
+            await textSelectPageModel?.GetText();
             print('result');
           }
         },

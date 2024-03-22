@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:manabiplus/home_screen.dart';
 import 'package:manabiplus/main.dart';
+
+import '../learn/course_select_page_model.dart';
 // import 'package:firebase/firebase.dart';
 
 Future<void> main() async {
@@ -70,7 +72,6 @@ class _UserInState extends State<UserIn> {
             ElevatedButton(
               child: Text('新規登録'),
               onPressed: () async {
-                String uid = FirebaseAuth.instance.currentUser.uid;
                 await FirebaseFirestore.instance
                     // ドキュメント作成
                     .collection('users')

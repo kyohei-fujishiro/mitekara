@@ -9,6 +9,42 @@
       "client_info": {
         "mobilesdk_app_id": "1:389847026471:android:1a31e5f9565f2a57a77702",
         "android_client_info": {
+          "package_name": "com.example.manabiplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeVwkp_b2loZNkhcUcwvTjir8csMBjgI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389847026471-52tduvnhfttus5a17h9lhbt1053e16mp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.manabiplus"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389847026471:android:3d7e0476061a02afa77702",
+        "android_client_info": {
           "package_name": "com.mitekara.manabiplus"
         }
       },
@@ -29,6 +65,50 @@
             {
               "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "389847026471-52tduvnhfttus5a17h9lhbt1053e16mp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.manabiplus"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-4725563974509084~8488768723"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389847026471:android:a996026b143d7238a77702",
+        "android_client_info": {
+          "package_name": "mitekara.manabiplus1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeVwkp_b2loZNkhcUcwvTjir8csMBjgI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389847026471-52tduvnhfttus5a17h9lhbt1053e16mp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.manabiplus"
+              }
             }
           ]
         }

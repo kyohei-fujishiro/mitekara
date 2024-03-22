@@ -92,7 +92,7 @@ class UnitResultPage extends StatelessWidget {
                 Container(
                   width: 115,
                   height: 32,
-                  child: FlatButton(
+                  child: TextButton(
                     child: Text(
                       'great',
                       style: TextStyle(
@@ -101,9 +101,11 @@ class UnitResultPage extends StatelessWidget {
                         color: Color(0xff707070),
                       ),
                     ),
-                    color: Color(0xff5FABF6).withOpacity(0.57),
-                    shape: StadiumBorder(
-                      side: BorderSide(color: Color(0xff707070), width: 1.5),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xff5FABF6).withOpacity(0.57),
+                      shape: StadiumBorder(
+                        side: BorderSide(color: Color(0xff707070), width: 1.5),
+                      ),
                     ),
                     onPressed: () {},
                   ),
@@ -144,7 +146,7 @@ class UnitResultPage extends StatelessWidget {
                 Container(
                   width: 115,
                   height: 32,
-                  child: FlatButton(
+                  child: TextButton(
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 4),
                       child: Text(
@@ -157,9 +159,11 @@ class UnitResultPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    color: Color(0xffF65F5F).withOpacity(0.57),
-                    shape: StadiumBorder(
-                      side: BorderSide(color: Color(0xff707070), width: 1.5),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xffF65F5F).withOpacity(0.57),
+                      shape: StadiumBorder(
+                        side: BorderSide(color: Color(0xff707070), width: 1.5),
+                      ),
                     ),
                     onPressed: () {},
                   ),
@@ -200,7 +204,7 @@ class UnitResultPage extends StatelessWidget {
                 Container(
                   width: 115,
                   height: 32,
-                  child: FlatButton(
+                  child: TextButton(
                     child: Text(
                       'good',
                       style: TextStyle(
@@ -209,9 +213,11 @@ class UnitResultPage extends StatelessWidget {
                         color: Color(0xff707070),
                       ),
                     ),
-                    color: Color(0xff5FF669).withOpacity(0.57),
-                    shape: StadiumBorder(
-                      side: BorderSide(color: Color(0xff707070), width: 1.5),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xff5FF669).withOpacity(0.57),
+                      shape: StadiumBorder(
+                        side: BorderSide(color: Color(0xff707070), width: 1.5),
+                      ),
                     ),
                     onPressed: () {},
                   ),
@@ -252,7 +258,7 @@ class UnitResultPage extends StatelessWidget {
                 Container(
                   width: 115,
                   height: 32,
-                  child: FlatButton(
+                  child: TextButton(
                     child: Text(
                       'normal',
                       style: TextStyle(
@@ -261,9 +267,11 @@ class UnitResultPage extends StatelessWidget {
                         color: Color(0xff707070),
                       ),
                     ),
-                    color: Color(0xffCD5FF6).withOpacity(0.57),
-                    shape: StadiumBorder(
-                      side: BorderSide(color: Color(0xff707070), width: 1.5),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xffCD5FF6).withOpacity(0.57),
+                      shape: StadiumBorder(
+                        side: BorderSide(color: Color(0xff707070), width: 1.5),
+                      ),
                     ),
                     onPressed: () {},
                   ),
@@ -304,7 +312,7 @@ class UnitResultPage extends StatelessWidget {
                 Container(
                   width: 115,
                   height: 32,
-                  child: FlatButton(
+                  child: TextButton(
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 4),
                       child: Text(
@@ -317,9 +325,11 @@ class UnitResultPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    color: Color(0xffF65F5F).withOpacity(0.57),
-                    shape: StadiumBorder(
-                      side: BorderSide(color: Color(0xff707070), width: 1.5),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xffF65F5F).withOpacity(0.57),
+                      shape: StadiumBorder(
+                        side: BorderSide(color: Color(0xff707070), width: 1.5),
+                      ),
                     ),
                     onPressed: () {},
                   ),

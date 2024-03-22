@@ -24,7 +24,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
 
   var _currentSortColumn = 0;
 
-  int page;
+  int? page;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      resultToLearnPage(widget.textid, page),
+                                      resultToLearnPage(widget.textid, page!),
                                   //todo 繊維方法
                                   fullscreenDialog: true,
                                 ),

@@ -90,9 +90,9 @@ class _LoginPageState extends State<WithdrawalPage> {
                         email: email,
                         password: password,
                       );
-                      await auth.currentUser
-                          .reauthenticateWithCredential(credential.credential);
-                      await auth.currentUser.delete();
+                      await auth.currentUser?.reauthenticateWithCredential(
+                          credential.credential!);
+                      await auth.currentUser?.delete();
 
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {

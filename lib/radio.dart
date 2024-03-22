@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-class Radiotest extends StatefulWidget{
+class Radiotest extends StatefulWidget {
   @override
   _ChangeFormState createState() => _ChangeFormState();
 }
 
 class _ChangeFormState extends State<Radiotest> {
-
   String _type = '';
 
-  void _handleRadio(String e) => setState(() {_type = e;});
+  void _handleRadio(String? e) => setState(() {
+        _type = e ?? '';
+      });
 
   IconData _changeIcon(String e) {
-    IconData icon = null;
+    IconData? icon = null;
     switch (e) {
       case 'thumb_up':
         icon = Icons.thumb_up;
@@ -53,7 +53,6 @@ class _ChangeFormState extends State<Radiotest> {
               onChanged: _handleRadio,
             ),
           ],
-        )
-    );
+        ));
   }
 }

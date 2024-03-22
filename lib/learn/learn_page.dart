@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/learn/learn_model.dart';
@@ -295,7 +296,7 @@ class LearnPage extends StatelessWidget {
                                           Container(
                                             width: devicewidth * 0.275,
                                             height: deviceHeight * 0.0425,
-                                            child: FlatButton(
+                                            child: TextButton(
                                               child: FittedBox(
                                                 // fit: BoxFit.scaleDown,
                                                 child: Text(
@@ -308,12 +309,15 @@ class LearnPage extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              color: Color(0xfff65f5f)
-                                                  .withOpacity(0.57),
-                                              shape: StadiumBorder(
-                                                side: BorderSide(
-                                                    color: Color(0xff707070),
-                                                    width: 1.5),
+                                              style: TextButton.styleFrom(
+                                                backgroundColor:
+                                                    Color(0xfff65f5f)
+                                                        .withOpacity(0.57),
+                                                shape: StadiumBorder(
+                                                  side: BorderSide(
+                                                      color: Color(0xff707070),
+                                                      width: 1.5),
+                                                ),
                                               ),
                                               onPressed: () async {
                                                 await model.Days(
@@ -370,7 +374,7 @@ class LearnPage extends StatelessWidget {
                                           Container(
                                             width: devicewidth * 0.275,
                                             height: deviceHeight * 0.0425,
-                                            child: FlatButton(
+                                            child: TextButton(
                                               child: FittedBox(
                                                 // fit: BoxFit.scaleDown,
                                                 child: Text(
@@ -382,12 +386,15 @@ class LearnPage extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              color: Color(0xffCD5FF6)
-                                                  .withOpacity(0.57),
-                                              shape: StadiumBorder(
-                                                side: BorderSide(
-                                                    color: Color(0xff707070),
-                                                    width: 1.5),
+                                              style: TextButton.styleFrom(
+                                                backgroundColor:
+                                                    Color(0xffCD5FF6)
+                                                        .withOpacity(0.57),
+                                                shape: StadiumBorder(
+                                                  side: BorderSide(
+                                                      color: Color(0xff707070),
+                                                      width: 1.5),
+                                                ),
                                               ),
                                               onPressed: () async {
                                                 await model.Days(
@@ -444,7 +451,7 @@ class LearnPage extends StatelessWidget {
                                           Container(
                                             width: devicewidth * 0.275,
                                             height: deviceHeight * 0.0425,
-                                            child: FlatButton(
+                                            child: TextButton(
                                               child: FittedBox(
                                                 // fit: BoxFit.scaleDown,
                                                 child: Text(
@@ -456,12 +463,15 @@ class LearnPage extends StatelessWidget {
                                                   ), /*good*/
                                                 ),
                                               ),
-                                              color: Color(0xff5FF669)
-                                                  .withOpacity(0.57),
-                                              shape: StadiumBorder(
-                                                side: BorderSide(
-                                                    color: Color(0xff707070),
-                                                    width: 1.5),
+                                              style: TextButton.styleFrom(
+                                                backgroundColor:
+                                                    Color(0xff5FF669)
+                                                        .withOpacity(0.57),
+                                                shape: StadiumBorder(
+                                                  side: BorderSide(
+                                                      color: Color(0xff707070),
+                                                      width: 1.5),
+                                                ),
                                               ),
                                               onPressed: () async {
                                                 await model.Days(
@@ -519,7 +529,7 @@ class LearnPage extends StatelessWidget {
                                               Container(
                                                 width: devicewidth * 0.275,
                                                 height: deviceHeight * 0.0425,
-                                                child: FlatButton(
+                                                child: TextButton(
                                                   child: FittedBox(
                                                     // fit: BoxFit.scaleDown,
                                                     child: Text(
@@ -533,13 +543,16 @@ class LearnPage extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  color: Color(0xff5FABF6)
-                                                      .withOpacity(0.57),
-                                                  shape: StadiumBorder(
-                                                    side: BorderSide(
-                                                        color:
-                                                            Color(0xff707070),
-                                                        width: 1.5),
+                                                  style: TextButton.styleFrom(
+                                                    backgroundColor:
+                                                        Color(0xff5FABF6)
+                                                            .withOpacity(0.57),
+                                                    shape: StadiumBorder(
+                                                      side: BorderSide(
+                                                          color:
+                                                              Color(0xff707070),
+                                                          width: 1.5),
+                                                    ),
                                                   ),
                                                   onPressed: () async {
                                                     await model.Days(
@@ -580,7 +593,7 @@ class LearnPage extends StatelessWidget {
                                     Container(
                                       width: devicewidth * 0.275,
                                       height: deviceHeight * 0.0425,
-                                      child: FlatButton(
+                                      child: TextButton(
                                         child: FittedBox(
                                           // fit: BoxFit.scaleDown,
                                           child: Text(
@@ -592,12 +605,14 @@ class LearnPage extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        color:
-                                            Color(0xc389897c).withOpacity(0.57),
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                              color: Color(0xff707070),
-                                              width: 1.5),
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: Color(0xc389897c)
+                                              .withOpacity(0.57),
+                                          shape: StadiumBorder(
+                                            side: BorderSide(
+                                                color: Color(0xff707070),
+                                                width: 1.5),
+                                          ),
                                         ),
                                         onPressed: () {
                                           showDialog(
@@ -608,12 +623,12 @@ class LearnPage extends StatelessWidget {
                                                     '一度消去したらこのページのデータは完全に消えます'),
                                                 content: Text('このページを消去しますか？'),
                                                 actions: <Widget>[
-                                                  FlatButton(
+                                                  TextButton(
                                                     child: Text("CANCEL"),
                                                     onPressed: () =>
                                                         Navigator.pop(context),
                                                   ),
-                                                  FlatButton(
+                                                  TextButton(
                                                       child: Text("OK"),
                                                       onPressed: () async {
                                                         await model
@@ -635,7 +650,7 @@ class LearnPage extends StatelessWidget {
                                     Container(
                                       width: devicewidth * 0.275,
                                       height: deviceHeight * 0.0425,
-                                      child: FlatButton(
+                                      child: TextButton(
                                         child: FittedBox(
                                           // fit: BoxFit.scaleDown,
                                           child: Text(
@@ -647,12 +662,14 @@ class LearnPage extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        color:
-                                            Color(0xc3ffef8a).withOpacity(0.57),
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                              color: Color(0xff707070),
-                                              width: 1.5),
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: Color(0xc3ffef8a)
+                                              .withOpacity(0.57),
+                                          shape: StadiumBorder(
+                                            side: BorderSide(
+                                                color: Color(0xff707070),
+                                                width: 1.5),
+                                          ),
                                         ),
                                         onPressed: () async {
                                           await model.StateUpdate();

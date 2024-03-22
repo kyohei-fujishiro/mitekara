@@ -47,7 +47,7 @@ class OptionPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20.0),
                     child:
                         Consumer<OptionModel>(builder: (context, model, child) {
-                      return FlatButton(
+                      return TextButton(
                         child: Text(
                           'アカウント設定',
                           style: TextStyle(
@@ -70,7 +70,7 @@ class OptionPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
-                    child: FlatButton(
+                    child: TextButton(
                         child: Text(
                           'ログアウト',
                           style: TextStyle(
@@ -90,7 +90,7 @@ class OptionPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
-                    child: FlatButton(
+                    child: TextButton(
                         child: Text(
                           '退会(アカウント削除)',
                           style: TextStyle(
@@ -111,7 +111,7 @@ class OptionPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20.0),
                     child:
                         Consumer<OptionModel>(builder: (context, model, child) {
-                      return FlatButton(
+                      return TextButton(
                         child: Text(
                           'ご利用規約',
                           style: TextStyle(

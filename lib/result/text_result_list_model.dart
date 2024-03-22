@@ -9,11 +9,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manabiplus/learn/lern_page_filed.dart';
+import '../learn/course_select_page_model.dart';
 import '../main.dart';
 import 'package:intl/intl.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
-String uid = FirebaseAuth.instance.currentUser.uid;
 
 class PagesModel {
   DateFormat outputFormat = DateFormat('MM月dd日');
@@ -27,7 +26,7 @@ class PagesModel {
 
   Timestamp nextDay;
   Timestamp lastStudy;
-  Timestamp NextStudySchedule;
+  Timestamp? NextStudySchedule;
   int retake = 0;
   String state = '';
   int i = 0;
@@ -79,7 +78,7 @@ class textResultListPageModel extends ChangeNotifier {
         .doc('$textid')
         .get();
 
-    final pagesMap = (snapshot.data()['pages'] as List)
+    final pagesMap = (snapshot.data()?['pages'] as List ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
 
@@ -113,7 +112,7 @@ class textResultListPageModel extends ChangeNotifier {
         .doc('$textid')
         .get();
 
-    final pages = (snapshot.data()['pages'] as List)
+    final pages = (snapshot.data()?['pages'] as List ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
     print(pages);

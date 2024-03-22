@@ -17,8 +17,7 @@ import 'course_select_page_model.dart';
 // ignore: must_be_immutable
 class CourseSelectPage extends StatelessWidget {
   CourseSelectPage(this.textid);
-  String textid;
-  int course;
+  final String textid;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,7 @@ class CourseSelectPage extends StatelessWidget {
                         Container(
                           child: Row(
                             children: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   '先に進める',
                                   style: TextStyle(
@@ -77,13 +76,16 @@ class CourseSelectPage extends StatelessWidget {
                                     color: Color(0xff707070),
                                   ),
                                 ),
-                                color: Color(0xff5FABF6).withOpacity(0.57),
-                                shape: StadiumBorder(
-                                  side: BorderSide(
-                                      color: Color(0xff707070), width: 1.5),
+                                style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      Color(0xff5FABF6).withOpacity(0.57),
+                                  shape: StadiumBorder(
+                                    side: BorderSide(
+                                        color: Color(0xff707070), width: 1.5),
+                                  ),
                                 ),
                                 onPressed: () async {
-                                  course = 1;
+                                  final course = 1;
                                   await Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -112,7 +114,7 @@ class CourseSelectPage extends StatelessWidget {
                         Container(
                           child: Row(
                             children: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   '復習をする',
                                   style: TextStyle(
@@ -121,13 +123,16 @@ class CourseSelectPage extends StatelessWidget {
                                     color: Color(0xff707070),
                                   ),
                                 ),
-                                color: Color(0xff5FF669).withOpacity(0.57),
-                                shape: StadiumBorder(
-                                  side: BorderSide(
-                                      color: Color(0xff707070), width: 1.5),
+                                style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      Color(0xff5FF669).withOpacity(0.57),
+                                  shape: StadiumBorder(
+                                    side: BorderSide(
+                                        color: Color(0xff707070), width: 1.5),
+                                  ),
                                 ),
                                 onPressed: () async {
-                                  course = 2;
+                                  final course = 2;
                                   await Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -154,7 +159,7 @@ class CourseSelectPage extends StatelessWidget {
                         Container(
                           child: Row(
                             children: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   '課題を行う',
                                   style: TextStyle(
@@ -163,13 +168,16 @@ class CourseSelectPage extends StatelessWidget {
                                     color: Color(0xff707070),
                                   ),
                                 ),
-                                color: Color(0xffF65F5F).withOpacity(0.57),
-                                shape: StadiumBorder(
-                                  side: BorderSide(
-                                      color: Color(0xff707070), width: 1.5),
+                                style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      Color(0xffF65F5F).withOpacity(0.57),
+                                  shape: StadiumBorder(
+                                    side: BorderSide(
+                                        color: Color(0xff707070), width: 1.5),
+                                  ),
                                 ),
                                 onPressed: () async {
-                                  course = 3;
+                                  final course = 3;
                                   await Navigator.push(
                                       context,
                                       MaterialPageRoute(

@@ -28,7 +28,7 @@ Future<void> main() async {
       .collection('master')
       .doc('version')
       .get();
-  _newVersion = snapshot.data()['data'];
+  _newVersion = snapshot.data()?['data'] ?? [];
   print("_newVersion = $_newVersion"); // バージョン情報を出力する
 
   MobileAds.instance.initialize();

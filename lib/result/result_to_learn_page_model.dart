@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-String uid = FirebaseAuth.instance.currentUser.uid;
+import '../learn/course_select_page_model.dart';
 
 class resultToLearnPageModel extends ChangeNotifier {
   int listIndexNumber = 0;
@@ -23,9 +23,9 @@ class resultToLearnPageModel extends ChangeNotifier {
   String rank = '';
   double days = 1.0;
   int addday = 0;
-  DateTime nextday;
-  DateTime laststudy;
-  DateTime NextstudySchedule;
+  DateTime? nextday;
+  DateTime? laststudy;
+  DateTime? NextstudySchedule;
   int retake = 0;
   String state = '';
   int i = 0;
@@ -51,13 +51,13 @@ class resultToLearnPageModel extends ChangeNotifier {
   List<int> reviewPageList = [];
   List<int> retakePageList = [];
 
-  List resultTextIdList;
-  List resultTitleList;
-  List resultRankList;
-  int resultMaxpages;
-  List AllLevelPagesDocumentList;
-  double LearnedPagesRate;
-  double ResevedPagesRate;
+  List? resultTextIdList;
+  List? resultTitleList;
+  List? resultRankList;
+  int? resultMaxpages;
+  List? AllLevelPagesDocumentList;
+  double? LearnedPagesRate;
+  double? ResevedPagesRate;
 
   int x = 0;
 
@@ -67,7 +67,7 @@ class resultToLearnPageModel extends ChangeNotifier {
     await IfNextday(textid, page);
   }
 
-  Future GetTextPage(textid, page) {
+  Future GetTextPage(textid, page) async {
     this.textid = textid;
     this.page = page;
     print(textid + 'textid');
@@ -89,7 +89,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         .doc(textid)
         .get();
 
-    final pages = (snapshot.data()['pages'] as List)
+    final pages = (snapshot.data()?['pages'] as List ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
     final getPageField = pages.toList();
@@ -130,7 +130,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         .doc(textid)
         .get();
 
-    final pages = (snapshot.data()['pages'] as List)
+    final pages = (snapshot.data()?['pages'] as List ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
 
@@ -164,7 +164,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         .doc('$textid')
         .get();
 
-    final pages = (snapshot.data()['pages'] as List)
+    final pages = (snapshot.data()?['pages'] as List ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
 
@@ -236,7 +236,7 @@ class resultToLearnPageModel extends ChangeNotifier {
     isStudyTimes = isStudyTimes + 1;
 
     pages[listIndexNumber]['days'] = days;
-    pages[listIndexNumber]['nextDay'] = Timestamp.fromDate(nextday);
+    pages[listIndexNumber]['nextDay'] = Timestamp.fromDate(nextday!);
     pages[listIndexNumber]['lastStudy'] = laststudy;
     pages[listIndexNumber]['isFirstTime'] = false;
     pages[listIndexNumber]['isStudyTimes'] = isStudyTimes;
@@ -267,7 +267,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         .doc('$textid')
         .get();
 
-    final pages = (snapshot.data()['pages'] as List)
+    final pages = (snapshot.data()?['pages'] as List ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
     final getPageField = pages.toList();
@@ -305,7 +305,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         .doc('$textid')
         .get();
 
-    final pages = (snapshot.data()['pages'] as List)
+    final pages = (snapshot.data()?['pages'] as List ?? [])
         .map((e) => e as Map<String, dynamic>)
         .toList();
 
@@ -347,7 +347,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         addday = reviewIfNextDay.toInt();
         nextday = now.add(Duration(days: addday));
         DateFormat NextdayFormat = DateFormat('MM月dd日');
-        String NextDayString = NextdayFormat.format(nextday);
+        String NextDayString = NextdayFormat.format(nextday!);
         ifnextdayList.add(NextDayString);
       }
     } else if (retake == 0) {
@@ -359,7 +359,7 @@ class resultToLearnPageModel extends ChangeNotifier {
             .doc('$textid')
             .get();
 
-        final pages = (snapshot.data()['pages'] as List)
+        final pages = (snapshot.data()?['pages'] as List ?? [])
             .map((e) => e as Map<String, dynamic>)
             .toList();
 
@@ -382,7 +382,7 @@ class resultToLearnPageModel extends ChangeNotifier {
         DateTime now = DateTime.now();
         nextday = now.add(Duration(days: addday));
         DateFormat NextdayFormat = DateFormat('MM月dd日');
-        String NextDayString = NextdayFormat.format(nextday);
+        String NextDayString = NextdayFormat.format(nextday!);
         nextNewDayList.add(NextDayString);
       }
     }

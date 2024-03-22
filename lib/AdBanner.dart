@@ -4,7 +4,7 @@ import 'dart:io';
 
 class AdBanner extends StatelessWidget {
   const AdBanner({
-    @required this.size, // サイズは利用時に指定
+    required this.size, // サイズは利用時に指定
   });
   final AdSize size;
   @override

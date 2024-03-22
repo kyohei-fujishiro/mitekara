@@ -99,7 +99,7 @@ class OptionTextRange extends StatelessWidget {
                 Container(
                   width: 130,
                   height: 40,
-                  child: FlatButton(
+                  child: TextButton(
                     child: Text(
                       '確   定',
                       style: TextStyle(
@@ -108,9 +108,11 @@ class OptionTextRange extends StatelessWidget {
                         color: Color(0xff707070),
                       ), /*good*/
                     ),
-                    color: Color(0xffF6F4F4).withOpacity(0.57),
-                    shape: StadiumBorder(
-                      side: BorderSide(color: Color(0xff707070), width: 1.5),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xffF6F4F4).withOpacity(0.57),
+                      shape: StadiumBorder(
+                        side: BorderSide(color: Color(0xff707070), width: 1.5),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(

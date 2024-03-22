@@ -6,7 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-String uid = FirebaseAuth.instance.currentUser.uid;
+import '../option/option_model.dart';
+import 'course_select_page_model.dart';
 
 class TextSelectPageModel extends ChangeNotifier {
   int currentCourse = 2;
@@ -17,9 +18,9 @@ class TextSelectPageModel extends ChangeNotifier {
   String rank = '';
   double days = 1;
   int addday = 0;
-  DateTime nextday;
-  DateTime laststudy;
-  DateTime NextstudySchedule;
+  DateTime? nextday;
+  DateTime? laststudy;
+  DateTime? NextstudySchedule;
   int retake = 0;
   String state = '';
   String textid = '';
@@ -43,7 +44,7 @@ class TextSelectPageModel extends ChangeNotifier {
   List<int> retakePageList = [];
   bool isLoading = false;
 
-  Future<int> GetText() async {
+  Future<void> GetText() async {
     textIdList = [];
     titleList = [];
     imageList = [];
@@ -65,8 +66,8 @@ class TextSelectPageModel extends ChangeNotifier {
           .doc('$textId')
           .get();
       // 取得したドキュメント一覧をUIに反映
-      title = '${gettextfield.data()['name']}';
-      final image = gettextfield.data()['imageurl'];
+      title = '${gettextfield.data()?['name'] ?? ''}';
+      final image = gettextfield.data()?['imageurl'] ?? '';
       titleList.add(title);
       imageList.add(image);
     }
