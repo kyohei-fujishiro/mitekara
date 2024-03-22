@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:manabiplus/firebase_options.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/learn/course_select_page_model.dart';
 import 'package:manabiplus/learn/learn_model.dart';
 import 'package:manabiplus/learn/text_select_page_model.dart';
@@ -18,19 +19,21 @@ var _version = "";
 var _newVersion = '';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  _version = packageInfo.version;
-  print("_version = $_version"); // バージョン情報を出力する
-  // Firebase
-  await Firebase.initializeApp();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final snapshot = await FirebaseFirestore.instance
       .collection('master')
       .doc('version')
       .get();
+  final packageInfo = await PackageInfo.fromPlatform();
+  _version = packageInfo.version;
+  print("_version = $_version"); // バージョン情報を出力する
   _newVersion = snapshot.data()?['data'] ?? [];
   print("_newVersion = $_newVersion"); // バージョン情報を出力する
 
-  MobileAds.instance.initialize();
+  // MobileAds.instance.initialize();
   runApp(MyApp());
 }
 

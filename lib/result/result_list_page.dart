@@ -1,17 +1,8 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:manabiplus/learn/course_select_page_model.dart';
-import 'package:manabiplus/learn/learn_model.dart';
-import 'package:manabiplus/learn/learn_page.dart';
-import 'package:manabiplus/result/result_list_page_model.dart';
-import 'package:provider/provider.dart';
-import 'package:manabiplus/result/text_result_list.page.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
-import '../AdBanner.dart';
+import 'package:flutter/material.dart';
+import 'package:manabiplus/result/result_list_page_model.dart';
+import 'package:manabiplus/result/text_result_list.page.dart';
+import 'package:provider/provider.dart';
 
 class ResultListPage extends StatefulWidget {
   ResultListPage() : super();

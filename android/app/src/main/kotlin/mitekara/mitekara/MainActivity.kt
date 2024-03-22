@@ -1,4 +1,4 @@
-package mitekara.manabiplus1
+package mitekara.mitekara
 
 import io.flutter.embedding.android.FlutterActivity
 

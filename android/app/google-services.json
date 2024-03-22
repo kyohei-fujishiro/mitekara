@@ -113,6 +113,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389847026471:android:3179afe8511a9623a77702",
+        "android_client_info": {
+          "package_name": "mitekara.mitekara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeVwkp_b2loZNkhcUcwvTjir8csMBjgI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389847026471-rja97j6dvg1adc7o6qp0rgdsvlrnmq0d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389847026471-52tduvnhfttus5a17h9lhbt1053e16mp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.manabiplus"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

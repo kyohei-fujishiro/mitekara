@@ -1,16 +1,6 @@
-import 'dart:developer';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:manabiplus/AdBanner.dart';
 import 'package:manabiplus/learn/learn_page.dart';
-import 'package:manabiplus/learn/learn_model.dart';
-import 'package:manabiplus/text_entry.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'course_select_page_model.dart';
 
@@ -53,7 +43,7 @@ class CourseSelectPage extends StatelessWidget {
                 Consumer<CourseSelectModel>(builder: (context, model, child) {
               return Column(
                 children: <Widget>[
-                  AdBanner(size: AdSize.banner),
+                  // AdBanner(size: AdSize.banner),
                   Text(
                     model.title,
                     style: TextStyle(

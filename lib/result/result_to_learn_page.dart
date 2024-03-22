@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/learn/lean_page_item.dart';
-import 'package:manabiplus/learn/learn_model.dart';
 import 'package:manabiplus/result/result_to_learn_page_model.dart';
 import 'package:provider/provider.dart';
-
-import '../AdBanner.dart';
 
 // ignore: must_be_immutable
 class resultToLearnPage extends StatelessWidget {
@@ -74,7 +69,7 @@ class resultToLearnPage extends StatelessWidget {
                   return Container(
                     child: Column(
                       children: <Widget>[
-                        AdBanner(size: AdSize.banner),
+                        // AdBanner(size: AdSize.banner),
                         Padding(
                           padding: const EdgeInsets.only(top: 1, bottom: 1),
                           child: Container(

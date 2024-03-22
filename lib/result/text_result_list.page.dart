@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:intl/intl.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/result/result_to_learn_page.dart';
 import 'package:manabiplus/result/text_result_list_model.dart';
-import 'package:manabiplus/result/unit_result_page.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter/src/material/data_table.dart';
-
-import '../AdBanner.dart';
 
 class TextResultListPage extends StatefulWidget {
   TextResultListPage(this.textid);
@@ -242,27 +238,15 @@ class _TextResultListPageState extends State<TextResultListPage> {
           break;
         case 'lastStudy':
           pages.sort((a, b) {
-            if (a.lastStudy == null) {
-              result = 1;
-            } else if (b.lastStudy == null) {
-              result = -1;
-            } else {
-              // Ascending Order
-              result = b.lastStudy.compareTo(a.lastStudy);
-            }
+            // Ascending Order
+            result = b.lastStudy.compareTo(a.lastStudy);
             return result;
           });
           break;
         case 'nextDay':
           pages.sort((a, b) {
-            if (a.nextDay == null) {
-              result = 1;
-            } else if (b.nextDay == null) {
-              result = -1;
-            } else {
-              // Ascending Order
-              result = b.nextDay.compareTo(a.nextDay);
-            }
+            // Ascending Order
+            result = b.nextDay.compareTo(a.nextDay);
             return result;
           });
           break;
@@ -286,27 +270,15 @@ class _TextResultListPageState extends State<TextResultListPage> {
           break;
         case 'lastStudy':
           pages.sort((a, b) {
-            if (b.lastStudy == null) {
-              result = -1;
-            } else if (a.lastStudy == null) {
-              result = 1;
-            } else {
-              // Ascending Order
-              result = a.lastStudy.compareTo(b.lastStudy);
-            }
+            // Ascending Order
+            result = a.lastStudy.compareTo(b.lastStudy);
             return result;
           });
           break;
         case 'nextDay':
           pages.sort((a, b) {
-            if (b.nextDay == null) {
-              result = -1;
-            } else if (a.nextDay == null) {
-              result = 1;
-            } else {
-              // Ascending Order
-              result = a.nextDay.compareTo(b.nextDay);
-            }
+            // Ascending Order
+            result = a.nextDay.compareTo(b.nextDay);
             return result;
           });
           break;

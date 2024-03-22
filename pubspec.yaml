@@ -25,8 +25,8 @@ dependencies:
   url_launcher:
   progress_state_button:
 
-  package_info_plus: ^6.0.0
-  google_mobile_ads:
+  package_info_plus: ^5.0.0
+  # google_mobile_ads:
 
 dev_dependencies:
   flutter_test:
