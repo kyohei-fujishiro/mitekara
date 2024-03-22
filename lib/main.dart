@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:manabiplus/learn/course_select_page_model.dart';
 import 'package:manabiplus/learn/learn_model.dart';
 import 'package:manabiplus/learn/text_select_page_model.dart';
@@ -10,10 +11,8 @@ import 'package:manabiplus/result/result_to_learn_page_model.dart';
 import 'package:manabiplus/result/text_result_list_model.dart';
 import 'package:manabiplus/sinup/sinup_page.dart';
 import 'package:manabiplus/text_entry_moel..dart';
-import 'package:provider/provider.dart';
-import 'AdBanner.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 
 var _version = "";
 var _newVersion = '';

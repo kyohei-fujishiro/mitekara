@@ -1,6 +1,6 @@
 name: manabiplus
 description: A new Flutter application.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.1.8+14
 environment:
   sdk: ">=3.0.2 <4.0.0"
@@ -16,7 +16,7 @@ dependencies:
       url: https://github.com/google/charts.git
       path: charts_flutter
   firebase:
-  firebase_core: ^2.27.1
+  firebase_core:
   firebase_auth:
   cloud_firestore:
   image_picker:
@@ -25,12 +25,8 @@ dependencies:
   url_launcher:
   progress_state_button:
 
-
-  package_info_plus:
+  package_info_plus: ^6.0.0
   google_mobile_ads:
-
-
-
 
 dev_dependencies:
   flutter_test:
@@ -39,16 +35,13 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-
 flutter:
-
-
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  #   - images/a_dot_burr.jpeg
-      - images/
+    #   - images/a_dot_burr.jpeg
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
