@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
                       ),
                     ),
                   ),
-                  body: Center(child: Text('ストア画面からアップデートをお願いします。')),
+                  body: Center(child: Text('ストア画面からアップデートをお願いします')),
                 )
               : LoginPage(),
         },
