@@ -24,8 +24,8 @@ class PagesModel {
   double days = 1;
   int addDay = 0;
 
-  Timestamp nextDay;
-  Timestamp lastStudy;
+  Timestamp? nextDay ;
+  Timestamp? lastStudy ;
   Timestamp? NextStudySchedule;
   int retake = 0;
   String state = '';
@@ -42,10 +42,10 @@ class PagesModel {
   String good = '';
   String great = '';
   String title = '';
-  int isPage;
-  int isRetake;
+  int? isPage;
+  int? isRetake;
   // dynamic pages;
-  int studyTimes;
+  int? studyTimes;
 
   PagesModel(
     this.isPage,

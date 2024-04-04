@@ -34,7 +34,7 @@ class TextSelectPageModel extends ChangeNotifier {
   String great = '';
   String title = '';
   List<dynamic> titleList = [];
-  List<dynamic> imageList = [];
+  List< String> imageList = [];
   List<String> nextdayList = ['', '', '', ''];
   List<DocumentSnapshot> pagesDocumentList = [];
   List<DocumentSnapshot> textsDocumentList = [];

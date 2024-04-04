@@ -155,7 +155,7 @@ class resultToLearnPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future Days(double rankNumber, int RetakeNumber) async {
+  Future Days(double? rankNumber, int RetakeNumber) async {
     List<int> pageList = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -188,8 +188,8 @@ class resultToLearnPageModel extends ChangeNotifier {
     days = getdayfield['days'];
     isStudyTimes = getdayfield['isStudyTimes'];
     days = days *
-        (rankNumber +
-            ((0.1) - (5 - rankNumber) * (0.08 + (5 - rankNumber) * 0.02)));
+        (rankNumber! +
+            ((0.1) - (5 - rankNumber!) * (0.08 + (5 - rankNumber!) * 0.02)));
 
     if (days <= 1) {
       days = 1;

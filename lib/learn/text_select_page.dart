@@ -82,6 +82,7 @@ class TextSelectPage extends StatelessWidget {
                                   child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Image.network(
+                                        errorBuilder: (context,e,s)=>SizedBox(),
                                           model.imageList[index])),
                                 );
                               }

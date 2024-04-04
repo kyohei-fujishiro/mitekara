@@ -29,19 +29,19 @@ class resultToLearnPage extends StatelessWidget {
               Container(
                 // 余白のためContainerでラップ
                 margin: EdgeInsets.only(bottom: 16.0),
-                child: FloatingActionButton(
-                  heroTag: "hero2",
-                  child: Icon(Icons.create),
-                  backgroundColor: Color(0xff00FFD4),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LeanPageItem(), //todo 遷移方法
-                          fullscreenDialog: true,
-                        ));
-                  },
-                ),
+                // child: FloatingActionButton(
+                //   heroTag: "hero2",
+                //   child: Icon(Icons.create),
+                //   backgroundColor: Color(0xff00FFD4),
+                //   onPressed: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => LeanPageItem(), //todo 遷移方法
+                //           fullscreenDialog: true,
+                //         ));
+                //   },
+                // ),
               ),
             ]),
         appBar: AppBar(

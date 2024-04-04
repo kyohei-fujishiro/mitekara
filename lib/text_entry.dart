@@ -140,7 +140,8 @@ class _TextEntryPageState extends State<TextEntryPage> {
                 children: <Widget>[
                   TextField(
                     decoration: InputDecoration(
-                      hintText: '教材名を入力　例：英語基礎問題集',
+                      labelText: "教材名を入力",
+                      hintText: '例：英語基礎問題集',
                     ),
                     onChanged: (text) {
                       // TODO: ここで取得したtextを使う
@@ -149,7 +150,8 @@ class _TextEntryPageState extends State<TextEntryPage> {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      hintText: ' 教材の最終ページ数を数字で入力　例：315',
+                      labelText: "教材の最終ページ数を数字で入力　",
+                      hintText: '例：315',
                     ),
                     onChanged: (text) {
                       // TODO:引数がわからない。 parseの使い方を調べる。
@@ -157,8 +159,11 @@ class _TextEntryPageState extends State<TextEntryPage> {
                     },
                   ), //pages
 
-                  TextFormField(
-                    initialValue: "評価の基準を入力：間違えた数",
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "評価の基準　",
+                      hintText: '例：間違えた数',
+                    ),
                     onChanged: (value) {
                       // TODO: ここで取得したtextを使う
                       uselection = value;
@@ -166,7 +171,8 @@ class _TextEntryPageState extends State<TextEntryPage> {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      hintText: 'againの基準を入力：２問間違えた',
+                      labelText: "againの基準を入力",
+                      hintText: '例：２問間違えた',
                     ),
                     onChanged: (value) {
                       // TODO: ここで取得したtextを使う
@@ -175,7 +181,8 @@ class _TextEntryPageState extends State<TextEntryPage> {
                   ), //again
                   TextField(
                     decoration: InputDecoration(
-                      hintText: 'normalの基準を入力：１問間違えた',
+                      labelText: "normalの基準を入力",
+                      hintText: '例：１問間違えた',
                     ),
                     onChanged: (value) {
                       // TODO: ここで取得したtextを使う
@@ -184,7 +191,8 @@ class _TextEntryPageState extends State<TextEntryPage> {
                   ), //normal
                   TextField(
                     decoration: InputDecoration(
-                      hintText: 'goodの基準を入力：全問正解（自信なし）',
+                      labelText: "goodの基準を入力",
+                      hintText: '例：全問正解（自信なし）',
                     ),
                     onChanged: (value) {
                       // TODO: ここで取得したtextを使う
@@ -193,7 +201,8 @@ class _TextEntryPageState extends State<TextEntryPage> {
                   ), //good
                   TextField(
                     decoration: InputDecoration(
-                      hintText: 'greatの基準を入力：全問正解(自信あり)',
+                      labelText: "greatの基準を入力",
+                      hintText: '例：全問正解(自信あり)',
                     ),
                     onChanged: (value) {
                       // TODO: ここで取得したtextを使う

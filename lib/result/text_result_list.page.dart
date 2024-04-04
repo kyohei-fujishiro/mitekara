@@ -99,7 +99,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
                           model.pages[index].lastStudy == null
                               ? ''
                               : outputFormat.format(
-                                  model.pages[index].lastStudy.toDate()),
+                                  model.pages[index].lastStudy!.toDate()),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -108,7 +108,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
                           model.pages[index].nextDay == null
                               ? ''
                               : outputFormat
-                                  .format(model.pages[index].nextDay.toDate()),
+                                  .format(model.pages[index].nextDay!.toDate()),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -231,7 +231,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
       _isAscending = false;
       switch (dataName) {
         case 'isPage':
-          pages.sort((a, b) => b.isPage.compareTo(a.isPage));
+          pages.sort((a, b) => b.isPage!.compareTo(a.isPage!));
           break;
         case 'rank':
           pages.sort((a, b) => b.rank.compareTo(a.rank));
@@ -239,14 +239,14 @@ class _TextResultListPageState extends State<TextResultListPage> {
         case 'lastStudy':
           pages.sort((a, b) {
             // Ascending Order
-            result = b.lastStudy.compareTo(a.lastStudy);
+            result = b.lastStudy!.compareTo(a.lastStudy!);
             return result;
           });
           break;
         case 'nextDay':
           pages.sort((a, b) {
             // Ascending Order
-            result = b.nextDay.compareTo(a.nextDay);
+            result = b.nextDay!.compareTo(a.nextDay!);
             return result;
           });
           break;
@@ -254,7 +254,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
           pages.sort((a, b) => b.state.compareTo(a.state));
           break;
         case 'isStudyTimes':
-          pages.sort((a, b) => b.studyTimes.compareTo(a.studyTimes));
+          pages.sort((a, b) => b.studyTimes!.compareTo(a.studyTimes!));
           break;
         default:
           break;
@@ -263,7 +263,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
       _isAscending = true;
       switch (dataName) {
         case 'isPage':
-          pages.sort((a, b) => a.isPage.compareTo(b.isPage));
+          pages.sort((a, b) => a.isPage!.compareTo(b.isPage!));
           break;
         case 'hogehoge':
           pages.sort((a, b) => a.rank.compareTo(b.rank));
@@ -271,14 +271,14 @@ class _TextResultListPageState extends State<TextResultListPage> {
         case 'lastStudy':
           pages.sort((a, b) {
             // Ascending Order
-            result = a.lastStudy.compareTo(b.lastStudy);
+            result = a.lastStudy!.compareTo(b.lastStudy!);
             return result;
           });
           break;
         case 'nextDay':
           pages.sort((a, b) {
             // Ascending Order
-            result = a.nextDay.compareTo(b.nextDay);
+            result = a.nextDay!.compareTo(b.nextDay!);
             return result;
           });
           break;
@@ -286,7 +286,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
           pages.sort((a, b) => a.state.compareTo(b.state));
           break;
         case 'isStudyTimes':
-          pages.sort((a, b) => a.studyTimes.compareTo(b.studyTimes));
+          pages.sort((a, b) => a.studyTimes!.compareTo(b.studyTimes!));
           break;
         default:
           break;

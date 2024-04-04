@@ -334,7 +334,7 @@ class LearnModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future Days(
+  Future<void> Days(
     double rankNumber,
     int RetakeNumber,
   ) async {
@@ -370,12 +370,12 @@ class LearnModel extends ChangeNotifier {
     // final getdayfield = pages[i - 1];
     final getdayfield = pages[listIndexNumber];
 
-    days = getdayfield['days'];
-    isStudyTimes = getdayfield['isStudyTimes'];
+    days = getdayfield['days']?? 1;
+    isStudyTimes = getdayfield['isStudyTimes']?? 0;
 
     days = days *
-        (rankNumber +
-            ((0.1) - (5 - rankNumber) * (0.08 + (5 - rankNumber) * 0.02)));
+        (rankNumber! +
+            (0.1 - (5 - rankNumber!) * (0.08 + (5 - rankNumber!) * 0.02)));
 
     if (days <= 1) {
       days = 1;
@@ -411,9 +411,9 @@ class LearnModel extends ChangeNotifier {
     }
 
     if (RetakeNumber == 0) {
-      retake = retake * RetakeNumber;
+      retake = retake * RetakeNumber!;
     } else {
-      retake = retake + RetakeNumber;
+      retake = retake + RetakeNumber!;
     }
 
     if (currentCourse <= 2) {
@@ -556,8 +556,8 @@ class LearnModel extends ChangeNotifier {
         final getIfNextDayField = pages[i - 1];
         days = getIfNextDayField['days'];
         days = days *
-            (rankNumber +
-                ((0.1) - (5 - rankNumber) * (0.08 + (5 - rankNumber) * 0.02)));
+            (rankNumber! +
+                ((0.1) - (5 - rankNumber!) * (0.08 + (5 - rankNumber!) * 0.02)));
 
         if (days <= 1) {
           days = 1;
