@@ -185,8 +185,8 @@ class resultToLearnPageModel extends ChangeNotifier {
 
     final getdayfield = pages[listIndexNumber];
 
-    days = getdayfield['days'];
-    isStudyTimes = getdayfield['isStudyTimes'];
+    days = getdayfield['days']??0;
+    isStudyTimes = getdayfield['isStudyTimes']??0;
     days = days *
         (rankNumber! +
             ((0.1) - (5 - rankNumber!) * (0.08 + (5 - rankNumber!) * 0.02)));
@@ -365,7 +365,7 @@ class resultToLearnPageModel extends ChangeNotifier {
 
         final getIfNextDayField = pages[page - 1];
 
-        days = getIfNextDayField['days'];
+        days = getIfNextDayField['days']??1;
         days = days *
             (rankNumber +
                 ((0.1) -

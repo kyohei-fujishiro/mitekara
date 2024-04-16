@@ -52,7 +52,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
                     cells: [
                       DataCell(
                         Container(
-                          width: devicewidth * 0.055,
+                          width: devicewidth * 0.165,
                           child: GestureDetector(
                             child: Text(
                               model.pages[index].isPage.toString(),
@@ -77,6 +77,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
                         ),
                       ),
                       DataCell(Container(
+                        width: devicewidth * 0.165,
                         child: GestureDetector(
                           child: Text(
                             model.pages[index].state.toString(),
