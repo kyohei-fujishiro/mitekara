@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -117,9 +118,12 @@ class _TextResultListPageState extends State<TextResultListPage> {
                       DataCell(
                         // Text(model.pages[index].studyTimes.toString())
                         Text(
-                          model.pages[index].studyTimes == null
-                              ? '0'
-                              : (model.pages[index].studyTimes.toString()),
+                          model.pages[index].studyTimes?.toString()??'',
+
+                              // == null
+                              // ? '0'
+                              // :(model.pages[index].studyTimes.toString()),
+
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -240,14 +244,14 @@ class _TextResultListPageState extends State<TextResultListPage> {
         case 'lastStudy':
           pages.sort((a, b) {
             // Ascending Order
-            result = b.lastStudy!.compareTo(a.lastStudy!);
+            result = (b.lastStudy??Timestamp.fromMicrosecondsSinceEpoch(0)).compareTo(a.lastStudy??Timestamp.fromMicrosecondsSinceEpoch(0));
             return result;
           });
           break;
         case 'nextDay':
           pages.sort((a, b) {
             // Ascending Order
-            result = b.nextDay!.compareTo(a.nextDay!);
+            result = (b.nextDay??Timestamp.fromMicrosecondsSinceEpoch(0)).compareTo(a.nextDay??Timestamp.fromMicrosecondsSinceEpoch(0));
             return result;
           });
           break;
@@ -255,7 +259,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
           pages.sort((a, b) => b.state.compareTo(a.state));
           break;
         case 'isStudyTimes':
-          pages.sort((a, b) => b.studyTimes!.compareTo(a.studyTimes!));
+          pages.sort((a, b) => (b.studyTimes??0).compareTo(a.studyTimes??0));
           break;
         default:
           break;
@@ -272,14 +276,14 @@ class _TextResultListPageState extends State<TextResultListPage> {
         case 'lastStudy':
           pages.sort((a, b) {
             // Ascending Order
-            result = a.lastStudy!.compareTo(b.lastStudy!);
+            result = (a.lastStudy??Timestamp.fromMicrosecondsSinceEpoch(0)).compareTo(b.lastStudy??Timestamp.fromMicrosecondsSinceEpoch(0));
             return result;
           });
           break;
         case 'nextDay':
           pages.sort((a, b) {
             // Ascending Order
-            result = a.nextDay!.compareTo(b.nextDay!);
+            result = (a.nextDay??Timestamp.fromMicrosecondsSinceEpoch(0)).compareTo(b.nextDay??Timestamp.fromMicrosecondsSinceEpoch(0));
             return result;
           });
           break;
@@ -287,7 +291,7 @@ class _TextResultListPageState extends State<TextResultListPage> {
           pages.sort((a, b) => a.state.compareTo(b.state));
           break;
         case 'isStudyTimes':
-          pages.sort((a, b) => a.studyTimes!.compareTo(b.studyTimes!));
+          pages.sort((a, b) => (a.studyTimes??0).compareTo(b.studyTimes??0));
           break;
         default:
           break;
